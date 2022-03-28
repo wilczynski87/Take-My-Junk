@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import logo from './logo.svg';
+import SetUserContext from './context';
 
 const LoginPanel = () => {
 
-    let login;
-    let password;
+    const [loginDetails, setLoginDetails] = useState({'login': 'Login', 'password': 'password'});
 
-    const [loginDetails, setLoginDetails] = useState({login: 'login', password: 'password'});
+    const user = useContext(SetUserContext);
 
     const submitHandler = event => {
         event.preventDefault();
@@ -25,10 +25,12 @@ const LoginPanel = () => {
                     type="text" 
                     id="fname" 
                     name="fname" 
-                    value = {loginDetails.login}
-                    onChange={event => setLoginDetails(loginDetails => ({
-                        ...loginDetails}, 
-                        event.target.value
+                    value = {loginDetails['login']}
+                    onChange = {event => setLoginDetails(loginDetails => (
+                        {
+                            ...loginDetails, 
+                            'login': event.target.value
+                        }
                     ))}
                 /> <br />
                 <label for="lname">Password:</label> <br />
@@ -37,6 +39,12 @@ const LoginPanel = () => {
                     id="lname" 
                     name="lname" 
                     value = {loginDetails.password}
+                    onChange = {event => setLoginDetails(loginDetails => (
+                        {
+                            ...loginDetails, 
+                            'password': event.target.value
+                        }
+                    ))}
                 /> <br />
                 <input 
                     type="submit"
