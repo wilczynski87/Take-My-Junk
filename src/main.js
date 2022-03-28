@@ -3,6 +3,7 @@ import UserContext from './context';
 
 const Main = () => {
     const user = useContext(UserContext);
+    
 return (
     <div>
         <p>Hello {user}</p>

@@ -1,13 +1,13 @@
 import React, { useState, useContext } from 'react';
 import logo from './logo.svg';
-import SetUserContext from './context';
 
-const LoginPanel = () => {
+const LoginPanel = ({setUser}) => {
 
     const [loginDetails, setLoginDetails] = useState({'login': 'Login', 'password': 'password'});
 
-    const user = useContext(SetUserContext);
+    setUser("Siusiak");
 
+    //supouse to ask for data of particular user
     const submitHandler = event => {
         event.preventDefault();
         let dataToSend = JSON.stringify({loginDetails});

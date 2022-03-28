@@ -1,32 +1,27 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Loading from './Loading.js';
 import LoginPanel from './Login';
 import Main from './main';
 import UserContext from './context';
-import { SetUserContext } from './context';
 
 function App() {
 
-const [loggedUser, setLoggedUser] = useState("DUPA");
+  const [loggedUser, setLoggedUser] = useState("DUPA");
 
-const handlerContext = (setUser) => {
-  setLoggedUser(setUser);
-};
-
-const readUser = useContext(SetUserContext);
+  const handlerUser = (setUser) => {
+    setLoggedUser(setUser);
+  };
 
   return (
-    <UserContext.Provider value={readUser}>
-      <SetUserContext.Provider value={handlerContext}>
+    <UserContext.Provider value={loggedUser}>
       <div className="App">
         <header className="App-header">
           {/* <Loading /> */}
-          <LoginPanel />
+          <LoginPanel setUser = {handlerUser}/>
           <Main />
         </header>
       </div>
-      </SetUserContext.Provider>
     </UserContext.Provider>
   );
 }
