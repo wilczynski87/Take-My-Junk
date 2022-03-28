@@ -5,9 +5,11 @@ import LoginPanel from './Login';
 import Main from './main';
 import UserContext from './context';
 
+const initialState = {"email": "No user logged yet!", "password": "password"};
+
 function App() {
 
-  const [loggedUser, setLoggedUser] = useState("DUPA");
+  const [loggedUser, setLoggedUser] = useState(initialState);
 
   const handlerUser = (setUser) => {
     setLoggedUser(setUser);

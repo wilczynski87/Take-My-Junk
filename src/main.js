@@ -3,10 +3,11 @@ import UserContext from './context';
 
 const Main = () => {
     const user = useContext(UserContext);
-    
+    // console.log(user);
+
 return (
     <div>
-        <p>Hello {user}</p>
+        <p>Hello {user["email"]}</p>
         I am main!
     </div>
 )};

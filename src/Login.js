@@ -1,17 +1,30 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
+
+const serverURL = "http://localhost:4000/user1";
+
+const beforeState = {"user1": {"email": "email2@email.com", "password": "password"}};
 
 const LoginPanel = ({setUser}) => {
 
-    const [loginDetails, setLoginDetails] = useState({'login': 'Login', 'password': 'password'});
+    const [loginDetails, setLoginDetails] = useState({'login': 'login...', 'password': 'password...'});
 
-    setUser("Siusiak");
+    // setUser("Siusiak");
 
     //supouse to ask for data of particular user
     const submitHandler = event => {
         event.preventDefault();
         let dataToSend = JSON.stringify({loginDetails});
-        console.log(dataToSend);
+        // console.log("Data to send " + dataToSend);
+        getUser();
+    }
+
+    const getUser = async () => {
+        const response = await fetch(serverURL);
+        const userRecived = await response.json();
+        // console.log("user Recived:")
+        // console.log(userRecived);
+        setUser(userRecived);
     }
 
     return(
