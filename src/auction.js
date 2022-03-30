@@ -18,7 +18,7 @@ const Auction = ({body}) => {
 
     const displayBids = (bidsy) => {
         if(bidsy === "No Bids :-( ") {
-            return <p>{bidsy}</p>;
+            console.log(bidsy)
         } else {
             return bidsy.map( (bid) => <Bids key = {bid.id} bidBody = {bid} /> )
         }

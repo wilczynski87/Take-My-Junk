@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import UserContext from './context';
+import { UserContext } from './context';
 import Auction from './auction';
 
 const Main = () => {
     const [auctions, setAuctions] = useState("dupa zbita");
-    const user = useContext(UserContext);
+    const [user, setUser] = useContext(UserContext);
     // console.log(user);
 
     const getActiveAuction = async () => {

@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import logo from './logo.svg';
+import { UserContext } from './context';
 
 const serverURL = "http://localhost:4000/user1";
 
-const LoginPanel = ({setUser}) => {
+const LoginPanel = () => {
+    const [userCont, setUserCont] = useContext(UserContext);
 
     const [loginDetails, setLoginDetails] = useState({'login': 'login...', 'password': 'password...'});
 
@@ -21,7 +23,7 @@ const LoginPanel = ({setUser}) => {
         const response = await fetch(serverURL);
         if(response.status === 200) {
             const userRecived = await response.json();
-            setUser(userRecived);
+            setUserCont(userRecived);
         } else {
             console.log(`Problem with a server status`)
         }

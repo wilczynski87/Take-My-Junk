@@ -3,7 +3,7 @@ import './App.css';
 import Loading from './Loading.js';
 import LoginPanel from './Login';
 import Main from './main';
-import UserContext from './context';
+import ContextProv from './context';
 
 const initialState = {"email": "No user logged yet!", "password": "password"};
 
@@ -16,15 +16,15 @@ function App() {
   };
 
   return (
-    <UserContext.Provider value={loggedUser}>
+    <ContextProv>
       <div className="App">
         <header className="App-header">
           {/* <Loading /> */}
-          <LoginPanel setUser = {handlerUser}/>
+          <LoginPanel />
           <Main />
         </header>
       </div>
-    </UserContext.Provider>
+    </ContextProv>
   );
 }
 
