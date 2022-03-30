@@ -34,7 +34,7 @@ const Main = () => {
 
     return (
         <div>
-            <p>Hello {user["email"]}</p>
+            <p>Hello {user[`user`][`email`]}</p>
             <button onClick={getActiveAuction}>Active Auctions</button> <br />
             {setAuc(auctions)}
             <button>Ended Auctions</button>

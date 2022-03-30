@@ -1,30 +1,23 @@
-import React, {useState} from 'react';
+import React, { useContext} from 'react';
 import './App.css';
 import Loading from './Loading.js';
 import LoginPanel from './Login';
 import Main from './main';
-import ContextProv from './context';
-
-const initialState = {"email": "No user logged yet!", "password": "password"};
+import { UserContext } from './context';
 
 function App() {
-
-  const [loggedUser, setLoggedUser] = useState(initialState);
-
-  const handlerUser = (setUser) => {
-    setLoggedUser(setUser);
-  };
+  const [userMenu, setUserMenu] = useContext(UserContext);
 
   return (
-    <ContextProv>
       <div className="App">
         <header className="App-header">
+          {userMenu[`menu`] === `login` ? <LoginPanel /> : null}
+          {userMenu[`menu`] === `main` ? <Main /> : null}
           {/* <Loading /> */}
-          <LoginPanel />
-          <Main />
+          {/* <LoginPanel />
+          <Main /> */}
         </header>
       </div>
-    </ContextProv>
   );
 }
 

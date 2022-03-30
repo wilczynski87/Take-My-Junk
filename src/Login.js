@@ -23,7 +23,10 @@ const LoginPanel = () => {
         const response = await fetch(serverURL);
         if(response.status === 200) {
             const userRecived = await response.json();
-            setUserCont(userRecived);
+            const wrapper = {type: 'setUser', payload: userRecived, };
+            // setUserCont(userRecived);
+            setUserCont({type: 'setMenu', payload: `main`})
+            setUserCont(wrapper);
         } else {
             console.log(`Problem with a server status`)
         }
