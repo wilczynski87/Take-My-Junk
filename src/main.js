@@ -21,11 +21,13 @@ const Main = () => {
 
 
     return (
-        <div>
+        <div className=''>
             <p>Hello {context.user.email}</p>
-            <button onClick={() => setAuctions(context.user.auctions)}>Active Auctions</button> <br />
+            <div className='w3-card-4' onClick={() => setAuctions(context.user.auctions)}>
+                Active Auctions
             {setAuc(auctions)}
-            <button>Ended Auctions</button>
+            </div> <br />
+            <div className='w3-card-4'>Ended Auctions</div>
         </div>
 )};
 

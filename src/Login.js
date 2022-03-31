@@ -33,7 +33,7 @@ const LoginPanel = () => {
     }
 
     return(
-        <div>
+        <div className=''>
             <img src={logo} className="App-logo" alt="logo" />
             <form
                 onSubmit={event => submitHandler(event)}
