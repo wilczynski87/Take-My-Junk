@@ -20,12 +20,8 @@ const ContextProv = (props) => {
 }
 
 const userReducer = (state, action) => {
-    console.log(action);
-    console.log(action.payload);
     switch(action.type) {
         case `setUser`:
-            let test = {...state, user: action.payload}
-            console.log(test);
             return {...state, user: action.payload};
         case `setMenu`:
             return {...state, menu: action.payload};
