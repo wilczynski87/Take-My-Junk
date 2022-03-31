@@ -7,7 +7,7 @@ const ContextProv = (props) => {
     const [state, dispatch] = useReducer(
             userReducer, 
             {
-                'user': {'email': `no user logged!`, 'password': null},
+                'user': {'name': `no user logged!`, 'password': null},
                 'menu': `login`
             }
         ); //the "state" should be named userMenu
@@ -25,6 +25,8 @@ const userReducer = (state, action) => {
             return {...state, user: action.payload};
         case `setMenu`:
             return {...state, menu: action.payload};
+        case 'logOut':
+            return {...state, user: {'name': `no user logged!`, 'password': null}, menu: 'login'}
         default:
             throw new Error(`Unhandled action type ${action.type}`)
     }

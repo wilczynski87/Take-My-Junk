@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from './context';
 import Auction from './auction';
+import MenuPanel from './menu';
 
 const Main = () => {
     const [auctions, setAuctions] = useState("dupa zbita");
@@ -22,7 +23,7 @@ const Main = () => {
 
     return (
         <div className=''>
-            <p>Hello {context.user.email}</p>
+            <div className='w3-panel'>Hello {context.user.name} <MenuPanel /></div> <br />
             <div className='w3-card-4' onClick={() => setAuctions(context.user.auctions)}>
                 Active Auctions
             {setAuc(auctions)}
