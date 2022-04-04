@@ -1,7 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
+
+const auctionsURL = `http://localhost:8081/getAuctionsByConsumerId/1`;
 
 const Main = () => {
     const [auctions, setAuctions] = useState("dupa zbita");
@@ -20,11 +22,21 @@ const Main = () => {
         }
     }
 
+    const firstName = (name) => {
+        return name.split(` `).shift();
+    }
+
+    useEffect(async () => {
+        const auctionByCustomer = await fetch(auctionsURL);
+        const auctionJSON = await auctionByCustomer.json();
+        console.log(auctionJSON);
+        setUser({type: 'setAuctions', payload: auctionJSON});
+    }, []);
 
     return (
         <div className=''>
-            <div className='w3-panel'>Hello {context.user.name} <MenuPanel /></div> <br />
-            <div className='w3-card-4' onClick={() => setAuctions(context.user.auctions)}>
+            <div className='w3-panel'>Hello {firstName(context.user.fullName)} </div> <MenuPanel /><br />
+            <div className='w3-card-4' onClick={() => setAuctions(context.auctions)}>
                 Active Auctions
             {setAuc(auctions)}
             </div> <br />

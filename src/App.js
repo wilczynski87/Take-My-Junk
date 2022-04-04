@@ -1,6 +1,5 @@
 import React, { useContext} from 'react';
-//import './App.css';
-import './w3.css';
+import 'w3-css/w3.css';
 import Loading from './Loading.js';
 import LoginPanel from './Login';
 import Main from './main';

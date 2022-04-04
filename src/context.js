@@ -7,7 +7,8 @@ const ContextProv = (props) => {
     const [state, dispatch] = useReducer(
             userReducer, 
             {
-                'user': {'name': `no user logged!`, 'password': null},
+                'user': {'fullName': `no user logged!`, 'password': null},
+                'auctions': {},
                 'menu': `login`
             }
         ); //the "state" should be named userMenu
@@ -25,6 +26,8 @@ const userReducer = (state, action) => {
             return {...state, user: action.payload};
         case `setMenu`:
             return {...state, menu: action.payload};
+        case `setAuctions`: 
+            return {...state, auctions: action.payload};
         case 'logOut':
             return {...state, user: {'name': `no user logged!`, 'password': null}, menu: 'login'}
         default:

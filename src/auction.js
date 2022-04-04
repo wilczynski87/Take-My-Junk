@@ -15,7 +15,12 @@ const Auction = ({body}) => {
     return (
         <div className='w3-panel w3-card-4'>
             <div onClick={() => setBids(body.bids)}>
-                {`${body.id}#    ${body.auctionOwner} - Auction owner`}
+                <div>
+                    <div className='w3-left'>{body.id}#</div>
+                    <div className='w3-center'>{body.title}</div>
+                    <div className='w3-right'>{body.auctionStart}</div>
+                </div>
+                <div></div>
             </div> <br />
             {displayBids(bids)}
         </div>

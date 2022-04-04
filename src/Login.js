@@ -31,7 +31,7 @@ const LoginPanel = () => {
         const response = await fetch(serverURL, headers);
         if(response.ok) {
             const userRecived = await response.json();
-            console.log(userRecived);
+            //console.log(userRecived);
             const wrapper = {type: 'setUser', payload: userRecived, };
             //console.log(userRecived);
             setUserCont({type: 'setMenu', payload: `main`})
