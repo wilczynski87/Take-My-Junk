@@ -2,7 +2,8 @@ import React, { useState, useContext } from 'react';
 import logo from './logo.svg';
 import { UserContext } from './context';
 
-const serverURL = "http://localhost:4000/user1";
+// const serverURL = "http://localhost:4000/user1";
+const serverURL = "http://localhost:8081/consumerLogin/Dupa@dupa.com/dupa";
 
 const LoginPanel = () => {
     const [userCont, setUserCont] = useContext(UserContext);
@@ -20,11 +21,19 @@ const LoginPanel = () => {
     }
 
     const getUser = async () => {
-        const response = await fetch(serverURL);
-        if(response.status === 200) {
+        const info = {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            }}
+        const headers = { 'Content-Type': 'application/json'}
+        const response = await fetch(serverURL, headers);
+        if(response.ok) {
             const userRecived = await response.json();
+            console.log(userRecived);
             const wrapper = {type: 'setUser', payload: userRecived, };
-            // setUserCont(userRecived);
+            //console.log(userRecived);
             setUserCont({type: 'setMenu', payload: `main`})
             setUserCont(wrapper);
         } else {
