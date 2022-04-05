@@ -26,7 +26,7 @@ const MenuPanel = () => {
             <button onClick={show} className="w3-button "><img src={menuIcon} className="" alt="menu" /></button>
             <ul className={`w3-dropdown-content w3-bar-block w3-animate-zoom ${ddmenu ? showMenu : null}`}>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('main')}>Main</li>
-                <li href="#" className="w3-bar-item w3-button" onClick={null}>Create Auction</li>
+                <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('createAuction')}>Create Auction</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={null}>Settings</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('logout')}>Log out</li>
             </ul>
