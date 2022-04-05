@@ -39,7 +39,9 @@ const Main = () => {
                 <div className='w3-left'>Hello {firstName(context.user.fullName)}</div> 
                 <div className='w3-right'><MenuPanel /> </div> 
             </div> <br />
-            <div className={`w3-container `} onClick={() => show(clicked)}> Active Auctions </div>
+            <div className="w3-container">
+                <div className={`w3-left`} onClick={() => show(clicked)}> Active Auctions </div>
+            </div>
             <div className={`${clicked}`}> {setAuc(auctions)} </div> <br />
             <div className='w3-card-4'>Ended Auctions</div>
         </div>
