@@ -2,15 +2,16 @@ import React, { useState, createContext, useReducer } from "react";
 
 const UserContext = createContext(null);
 
+const initialRender = {
+        'user': {'fullName': `no user logged!`, 'password': null},
+        'auctions': {},
+        'menu': `login`
+    };
+
 const ContextProv = (props) => {
     const [loggedUser, setLoggedUser] = useState("DUPA");
     const [state, dispatch] = useReducer(
-            userReducer, 
-            {
-                'user': {'fullName': `no user logged!`, 'password': null},
-                'auctions': {},
-                'menu': `login`
-            }
+            userReducer, initialRender
         ); //the "state" should be named userMenu
 
     return(
@@ -29,7 +30,7 @@ const userReducer = (state, action) => {
         case `setAuctions`: 
             return {...state, auctions: action.payload};
         case 'logOut':
-            return {...state, user: {'name': `no user logged!`, 'password': null}, menu: 'login'}
+            return {...state, user: initialRender.user, menu: 'login'}
         default:
             throw new Error(`Unhandled action type ${action.type}`)
     }

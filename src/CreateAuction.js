@@ -1,3 +1,7 @@
+/* TO DO:
+- submit button zrobić
+- fetch w tworzeniau auckji
+*/
 import React, { useState } from 'react';
 import MenuPanel from './menu';
 
