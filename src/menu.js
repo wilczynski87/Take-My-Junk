@@ -1,3 +1,6 @@
+/*
+- aukcje cza 2x kliknac?!
+*/
 import React, { useContext, useState } from 'react';
 import { UserContext } from './context';
 import menuIcon from './menu_black_24dp.svg';

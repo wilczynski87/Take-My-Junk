@@ -51,14 +51,14 @@ const CreateAuction = () => {
                 <div className='w3-row'>Create Auction</div> 
                 <div className='w3-row w3-right'><MenuPanel /> </div>
             </div> <br />
-            <form>
+            <form onSubmit={event => submitHandler(event)}>
             {
                 Object.keys(myForm).map(
                     (mykey) => myLabel(mykey) 
                 )
             }
+            <input type="submit" className='w3-right' value='submit' />
             </form>
-            <button className='w3-right'>submit</button>
         </div>
     );
 }

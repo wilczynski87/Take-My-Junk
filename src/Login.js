@@ -41,6 +41,10 @@ const LoginPanel = () => {
         }
     }
 
+    const reg = () => {
+        setUserCont({type: 'setMenu', payload: `register`});
+    }
+
     return(
         <div className=''>
             <img src={logo} className="App-logo" alt="logo" />
@@ -78,7 +82,7 @@ const LoginPanel = () => {
                     value="Logi In"
                 ></input>
             </form>
-            <p>Don't have an account? <span>Register here.</span></p>
+            <p>Don't have an account? <span onClick={reg}>Register here.</span></p>
             <hr />
             <p>Facebook Icon</p>
             <p>Google Icon</p>
