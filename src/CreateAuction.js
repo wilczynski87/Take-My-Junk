@@ -2,10 +2,13 @@
 - submit button zrobić
 - fetch w tworzeniau auckji
 */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import MenuPanel from './menu';
+import { UserContext } from './context';
 
 const CreateAuction = () => {
+
+    const [menu, setMenu] = useContext(UserContext);
 
     const [myForm, setForm] = useState({
         title: 'meaningfull title...',
@@ -13,8 +16,8 @@ const CreateAuction = () => {
         volume: 'how much junk in m3',
         containerType: 'container type...', 
         containerNumber: 'number of containers...',
-        startDate: 'when to deliver container?',
-        endDate: 'when to pick up an container?', 
+        startDate: '',
+        endDate: '', 
         address: 'where to deliver an container?',
         notes: 'notes...'
     });
@@ -23,17 +26,55 @@ const CreateAuction = () => {
         event.preventDefault();
         let dataToSend = JSON.stringify({myForm});
         console.log("Data to send " + dataToSend);
+        setMenu({type: 'setMenu', payload: 'main'});
+    }
+
+    const nameValidator = (name) => {
+        switch(name) {
+            case 'junkType':
+                return 'Junk Type: ';
+            case 'containerType':
+                return 'Container Type: ';
+            case 'containerNumber':
+                return 'Container Number: ';
+            case 'startDate':
+                return 'Start Date: ';
+            case 'endDate':
+                return 'End Date: ';
+            default: 
+                name = name.split("");
+                name[0] = name[0].toUpperCase();
+                name = name.join("") + ": ";
+                return name;
+        }
+    }
+
+    const typeValidator = (type) => {
+        switch(type) {
+            case 'startDate':
+                return 'date';
+            case 'endDate':
+                return 'date'
+            default:
+                return 'text';
+        }
     }
 
     const myLabel = (key) => {
         return (
             <div key={key}> 
-                <label for={key}>{`${key}:`}</label> <br />
+                <label for={key}>{nameValidator(key)}</label> <br />
                         <input 
-                            type="text" 
+                            type={typeValidator(key)} 
                             id={key} 
                             name={key}
                             value = {myForm[key]}
+                            onClick = {() => setForm(myForm => (
+                                {
+                                    ...myForm, 
+                                    [key]: ""
+                                }
+                            ))}
                             onChange = {event => setForm(myForm => (
                                 {
                                     ...myForm, 

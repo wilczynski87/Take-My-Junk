@@ -22,15 +22,46 @@ const Register = () => {
         rPassword: 'repead password'
     })
 
+    const nameValidator = (name) => {
+        switch(name) {
+            case 'fullName':
+                return 'Full name: ';
+            case 'rPassword':
+                return 'Repead password: ';
+            default: 
+                name = name.split("");
+                name[0] = name[0].toUpperCase();
+                name = name.join("") + ": ";
+                return name;
+        }
+    }
+
+    const typeValidator = (type) => {
+        switch(type) {
+            case 'email':
+                return 'email';
+            case 'phone':
+                return 'tel'
+            default:
+                return 'text';
+        }
+    }
+
     const inputer = (key) => {
         return (
             <div key={key}> 
-                <label for={key}>{`${key}:`}</label> <br />
+                <label for={key}>{nameValidator(key)}</label> <br />
                         <input 
-                            type="text" 
+                            type={typeValidator(key)} 
                             id={key} 
                             name={key}
                             value = {user[key]}
+                            onClick = {() => setUser(user => (
+                                {
+                                    ...user, 
+                                    [key]: ""
+                                }
+                            ))}
                             onChange = {event => setUser(user => (
                                 {
                                     ...user, 
@@ -44,7 +75,13 @@ const Register = () => {
 
     const submitHandler = (event) => {
         event.preventDefault();
-
+        if(user.password !== user.rPassword) {
+            alert("Passwords do not match");
+        } else {
+            const toSend = JSON.stringify(user);
+            console.log(toSend);
+            back();
+        }
     }
 
     const back = () => {
@@ -60,7 +97,10 @@ const Register = () => {
             <div>
                 <form onSubmit={(event) => submitHandler(event)}>
                     {Object.keys(user).map((key) => inputer(key))}
-                    
+                    <input type='radio' value='Consumer' name='type' defaultChecked/>
+                    <label>I am Consumer - I have junk to dispouse</label> <br />
+                    <input type='radio' value='Provider' name='type' /> 
+                    <label>I am Provider - I will dispouse yours junk</label><br />
                     <input type='submit' value='Submit' />
                 </form>
             </div>
