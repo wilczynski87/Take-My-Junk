@@ -87,9 +87,9 @@ const CreateAuction = () => {
 
     return(
         <div>
-            <div className='w3-display-container'> 
-                <div className='w3-row'>Create Auction</div> 
-                <div className='w3-row w3-right'><MenuPanel /> </div>
+            <div className='w3-panel w3-border'> 
+                <div className='w3-left w3-border'>Create Auction</div> 
+                <div className='w3-right w3-border'><MenuPanel /> </div>
             </div> <br />
             <form onSubmit={event => submitHandler(event)}>
             {

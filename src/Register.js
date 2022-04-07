@@ -132,7 +132,7 @@ const Register = () => {
 
     return(
         <div>
-            <div className='w3-container'>
+            <div className='w3-panel'>
                 <div className='w3-left' >Registration: </div>
                 <img src={backIcon} className="w3-right" alt="back to Login In menu" onClick={back} />
             </div>
@@ -162,7 +162,7 @@ const Register = () => {
                         type='radio' 
                         value='Provider' 
                         name='userType' 
-                        onChange={ onValueChange}
+                        onChange={onValueChange}
                         checked = {user.userType === `Provider`}
                     /> 
                     <label>I am Provider - I will dispouse yours junk</label><br />

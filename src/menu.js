@@ -30,7 +30,7 @@ const MenuPanel = () => {
             <ul className={`w3-dropdown-content w3-bar-block w3-animate-zoom ${ddmenu ? showMenu : null}`}>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('main')}>Main</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('createAuction')}>Create Auction</li>
-                <li href="#" className="w3-bar-item w3-button" onClick={null}>Settings</li>
+                <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('settings')}>Settings</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('logout')}>Log out</li>
             </ul>
         </div>
