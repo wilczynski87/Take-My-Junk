@@ -1,25 +1,26 @@
 /*
-- checking if details put correctly
-- change inputs name
-- consider password menu
-- function to validate user on backend
+- function to validate user type on backend
+- fetch zrobic
 */
 import React, {useState, useContext} from 'react';
 import backIcon from './arrow_back_ios_black_24dp.svg';
 import { UserContext } from './context';
 
+const url = `http://localhost:8081/`;
 
 const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
 
     const [user, setUser] = useState({
         fullName: 'your full name...',
-        email: 'your email...',
+        email: 'your@email.com',
         address: 'your address...',
         phone: 'your phone...',
         firm: 'firm...',
         password: 'password...',
-        rPassword: 'repead password'
+        rPassword: 'password...',
+        licenseNo: '',
+        userType: 'Consumer'
     })
 
     const nameValidator = (name) => {
@@ -80,12 +81,53 @@ const Register = () => {
         } else {
             const toSend = JSON.stringify(user);
             console.log(toSend);
+            submitData();
             back();
         }
     }
 
+    const submitData = async () => {
+        //URL creator
+        const cons = "consumerSignIn";
+        const prof = "professionalSignIn";
+        let urlFetch = url;
+        urlFetch += user.userType === `Consumer`? cons : prof;
+        console.log(urlFetch);
+
+        //Body creator
+        const header = {};
+        const data = {
+            ...user
+            }
+        delete data.rPassword;
+        delete data.userType;
+        if(user.userType === `Consumer`) delete data.licenseNo;
+
+        const response = await fetch(urlFetch, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer', 
+            body: JSON.stringify(data)
+            });
+
+            const responseJson = await response.json();
+            console.log(responseJson);
+    }
+
     const back = () => {
         setMenu({type: 'setMenu', payload: 'login'});
+    }
+
+    const onValueChange = (event) => {
+        setUser({
+            ...user,
+            userType: event.target.value
+        });
     }
 
     return(
@@ -96,10 +138,33 @@ const Register = () => {
             </div>
             <div>
                 <form onSubmit={(event) => submitHandler(event)}>
-                    {Object.keys(user).map((key) => inputer(key))}
-                    <input type='radio' value='Consumer' name='type' defaultChecked/>
+                    {
+                    Object.keys(user)
+                        .filter((key) => {
+                            return user.userType === `Consumer` && key === `licenseNo` ? null : key;
+                        })
+                        .filter((key) => {
+                            return key === `userType` ? null : key; 
+                        })
+                        .map((key) => {
+                        return inputer(key);
+                        })
+                    }
+                    <input 
+                        type='radio' 
+                        value='Consumer' 
+                        name='userType' 
+                        onChange={onValueChange}
+                        checked = {user.userType === `Consumer`}
+                    />
                     <label>I am Consumer - I have junk to dispouse</label> <br />
-                    <input type='radio' value='Provider' name='type' /> 
+                    <input 
+                        type='radio' 
+                        value='Provider' 
+                        name='userType' 
+                        onChange={ onValueChange}
+                        checked = {user.userType === `Provider`}
+                    /> 
                     <label>I am Provider - I will dispouse yours junk</label><br />
                     <input type='submit' value='Submit' />
                 </form>
