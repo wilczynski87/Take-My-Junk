@@ -1,5 +1,6 @@
 /*
 - info about changed details -> succes or NOT?!
+- option to swich from consumer to Provider
 */
 import React, {useState, useContext} from 'react';
 import { UserContext } from './context';
@@ -57,6 +58,30 @@ const Settings = () => {
         console.log(responseJson);
 
         //info about changed details -> succes or NOT?!
+        setContext({type: 'setUser', payload: responseJson});
+    }
+
+    const deleteAccount = async (event) => {
+        event.preventDefault();
+        //url builder
+        let myUrl = url + [`licenseNo` in user ? `professionalDelete/` : `consumerDelete/`];
+        myUrl += `${user.email}/${user.password}`;
+
+        //fetch builder
+        const header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+
+        //fetch
+        const response = await fetch(myUrl, {
+            method: 'DELETE',
+            headers: header,
+        });
+        const responseJson = await response.json();
+        console.log(responseJson);
+
+        //info about changed details -> succes or NOT?!
     }
 
     return (
@@ -68,6 +93,16 @@ const Settings = () => {
             <form onSubmit={(event) => submitHandler(event)}>
                 {Object.keys(user).map(details)}
                 <input type='submit' value='Submit changes' />
+            </form>
+            <form onSubmit={(event) => deleteAccount(event)}>
+                <label>Do you want to delete an account?</label> <br />
+                <label>password: </label> <input type='password' value={user.password} onChange={event => setUser( 
+                        {
+                            ...user,
+                            password: event.target.value
+                        }
+                    )}/> <br />
+                    <input type='submit' value='Delete Account'></input>
             </form>
         </div>
     )

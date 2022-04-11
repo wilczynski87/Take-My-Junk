@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import { UserContext } from './context';
 
 // const serverURL = "http://localhost:4000/user1";
-const serverURL = "http://localhost:8081/consumerLogin/Dupa@dupa.com/dupa";
+const serverURL = "http://localhost:8081/consumerLogin/your@email.com/password...";
 
 const LoginPanel = () => {
     const [userCont, setUserCont] = useContext(UserContext);
