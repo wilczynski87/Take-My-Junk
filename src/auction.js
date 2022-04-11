@@ -1,10 +1,14 @@
 import React, { useState, useContext } from 'react';
 import Bids from './bids';
 import deleteIcon from './cancel_black_24dp.svg';
+import { UserContext } from './context';
+
+const url = "http://lokalhost:8081/deleteAuction/";
 
 const Auction = ({body}) => {
     const [bids, setBids] = useState("No offers yet...");
     const [click, setClick] = useState(null);
+    const [context, setContext] = useContext(UserContext);
 
     const displayBids = (bidsy) => {
         if(bidsy === "No offers yet...") {
@@ -23,7 +27,16 @@ const Auction = ({body}) => {
     }
 
     const deleteAuction = () => {
+        //url builder
+        const auctionId = "";
+        const myUrl = url + auctionId;
+
+        //fetch builder
         
+
+        //fetch
+
+
     }
 
     return (
@@ -34,7 +47,7 @@ const Auction = ({body}) => {
                     <div className='w3-center w3-cell-top'>{body.title}</div>
                     <div className=''>{body.auctionStart}</div>
                 </div>
-                <img src={deleteIcon} onClick={null} className='w3-right w3-cell-top' alt="delete Auction" />
+                <img src={deleteIcon} onClick={deleteAuction()} className='w3-right w3-cell-top' alt="delete Auction" />
             </div> <br />
             <div className={`${click}`}>
                 {displayBids(bids)}

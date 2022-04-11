@@ -6,11 +6,9 @@ import { UserContext } from './context';
 const serverURL = "http://localhost:8081/consumerLogin/your@email.com/password...";
 
 const LoginPanel = () => {
-    const [userCont, setUserCont] = useContext(UserContext);
+    const [userCont, setContext] = useContext(UserContext);
 
     const [loginDetails, setLoginDetails] = useState({'login': 'login...', 'password': 'password...'});
-
-    // setUser("Siusiak");
 
     //supouse to ask for data of particular user
     const submitHandler = event => {
@@ -24,7 +22,7 @@ const LoginPanel = () => {
         const info = {
             method: 'GET',
             headers: {
-              Accept: 'application/json',
+              'Accept': 'application/json',
               'Content-Type': 'application/json',
             }}
         const headers = { 'Content-Type': 'application/json'}
@@ -34,15 +32,15 @@ const LoginPanel = () => {
             //console.log(userRecived);
             const wrapper = {type: 'setUser', payload: userRecived, };
             //console.log(userRecived);
-            setUserCont({type: 'setMenu', payload: `main`})
-            setUserCont(wrapper);
+            await setContext(wrapper);
+            await setContext({type: 'setMenu', payload: `main`});
         } else {
             console.log(`Problem with a server status`)
         }
     }
 
     const reg = () => {
-        setUserCont({type: 'setMenu', payload: `register`});
+        setContext({type: 'setMenu', payload: `register`});
     }
 
     return(

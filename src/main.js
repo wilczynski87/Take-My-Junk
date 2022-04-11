@@ -3,7 +3,7 @@ import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
 
-const auctionsURL = `http://localhost:8081/getAuctionsByConsumerId/1`;
+const auctionsURL = `http://localhost:8081/getAuctionsByConsumerId/`;
 
 const Main = () => {
     const [auctions, setAuctions] = useState("No active auctions to display");
@@ -22,10 +22,27 @@ const Main = () => {
         return name.split(` `).shift();
     }
 
-    useEffect(async () => {
-        const auctionByCustomer = await fetch(auctionsURL);
-        const auctionJSON = await auctionByCustomer.json();
-        setContext({type: 'setAuctions', payload: auctionJSON});
+    useEffect( () => {
+        //url builder
+        const myUrl = auctionsURL + context.user.id;
+
+        //fetch builder
+        const header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+        const fetchFunction = async () => {
+            const auctionByCustomer = await fetch(myUrl, {
+                method: 'GET',
+                headers: header
+            });
+            const auctionJSON = await auctionByCustomer.json();
+            setContext({type: 'setAuctions', payload: auctionJSON});
+        }
+
+        //fetch
+        fetchFunction();
+
     }, []);
 
     const show = (click) => {

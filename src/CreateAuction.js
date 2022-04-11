@@ -1,13 +1,17 @@
 /* TO DO:
 - fetch w tworzeniau auckji
+- daty -> utowrzyć bazowo datę dzisiejszą
+- daty -> bazowo termin +7 dni
 */
 import React, { useState, useContext } from 'react';
 import MenuPanel from './menu';
 import { UserContext } from './context';
 
+const url = "http://localhost:8081/createAuction/"
+
 const CreateAuction = () => {
 
-    const [menu, setMenu] = useContext(UserContext);
+    const [context, setMenu] = useContext(UserContext);
 
     const [myForm, setForm] = useState({
         title: 'meaningfull title...',
@@ -18,13 +22,39 @@ const CreateAuction = () => {
         startDate: '',
         endDate: '', 
         address: 'where to deliver an container?',
-        notes: 'notes...'
+        notes: 'notes...',
+        whoCreated: context.user.id
     });
 
-    const submitHandler = event => {
+    const submitHandler = async event => {
         event.preventDefault();
-        let dataToSend = JSON.stringify({myForm});
-        console.log("Data to send " + dataToSend);
+
+        const myId = myForm.whoCreated;
+
+        //url builder
+        let urlId = url + myId;
+        // console.log(urlId);
+
+        //fetch builder
+        const headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+        const body = JSON.stringify(myForm); //let dataToSend = JSON.stringify({myForm});
+        console.log(body);
+
+        //fetch
+        const response = await fetch( urlId,
+            {
+                method: 'POST',
+                headers: headers,
+                body: body
+            }
+        );
+        const responseJSON = await response.json();
+        console.log(responseJSON);
+
+        //after fetch
         setMenu({type: 'setMenu', payload: 'main'});
     }
 
@@ -54,6 +84,10 @@ const CreateAuction = () => {
                 return 'date';
             case 'endDate':
                 return 'date'
+            case 'containerNumber':
+                return 'number';
+            case 'volume':
+                return 'number';
             default:
                 return 'text';
         }
@@ -93,9 +127,9 @@ const CreateAuction = () => {
             </div> <br />
             <form onSubmit={event => submitHandler(event)}>
             {
-                Object.keys(myForm).map(
-                    (mykey) => myLabel(mykey) 
-                )
+                Object.keys(myForm)
+                    .filter((key) => key != 'whoCreated')
+                    .map( (mykey) => myLabel(mykey) )
             }
             <input type="submit" className='w3-right' value='submit' />
             </form>
