@@ -29,6 +29,8 @@ const userReducer = (state, action) => {
             return {...state, menu: action.payload};
         case `setAuctions`: 
             return {...state, auctions: action.payload};
+        case `deleteAuction`:
+            return {auctions: action.payload};
         case 'logOut':
             return {...state, user: initialRender.user, menu: 'login'}
         default:

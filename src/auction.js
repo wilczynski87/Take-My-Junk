@@ -3,9 +3,9 @@ import Bids from './bids';
 import deleteIcon from './cancel_black_24dp.svg';
 import { UserContext } from './context';
 
-const url = "http://lokalhost:8081/deleteAuction/";
+const url = "http://localhost:8081/deleteAuction/";
 
-const Auction = ({body}) => {
+const Auction = ({body, index}) => {
     const [bids, setBids] = useState("No offers yet...");
     const [click, setClick] = useState(null);
     const [context, setContext] = useContext(UserContext);
@@ -26,18 +26,32 @@ const Auction = ({body}) => {
         //if(clicked === null) setBids(body.bids);
     }
 
-    const deleteAuction = () => {
+    const deleteAuction = async () => {
+        console.log("delete auction start");
         //url builder
-        const auctionId = "";
+        const auctionId = body.id;
         const myUrl = url + auctionId;
+        console.log(myUrl);
 
         //fetch builder
-        
+        const header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
 
         //fetch
+        const response = await fetch(myUrl, 
+            {
+                method: 'DELETE',
+                headers: header
+            });
+        const responseJSON = await response.json();
 
+        console.log(responseJSON);
 
-    }
+        //after fetch
+        await setContext({type: 'setMenu', payload: 'main'});
+    };
 
     return (
         <div className='w3-panel w3-card-4'>
@@ -47,7 +61,10 @@ const Auction = ({body}) => {
                     <div className='w3-center w3-cell-top'>{body.title}</div>
                     <div className=''>{body.auctionStart}</div>
                 </div>
-                <img src={deleteIcon} onClick={deleteAuction()} className='w3-right w3-cell-top' alt="delete Auction" />
+                <div>
+                <img 
+                    src={deleteIcon} onClick={() => deleteAuction()} className='w3-right w3-cell-top' alt="delete Auction" />
+                </div>
             </div> <br />
             <div className={`${click}`}>
                 {displayBids(bids)}

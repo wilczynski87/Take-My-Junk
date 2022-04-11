@@ -14,7 +14,7 @@ const Main = () => {
         if(auct === "No active auctions to display") {
              return <div className='w3-center'>{clicked === ` w3-hide` ? auctions : null}</div>;
         } else {
-            return auct.map((auction) =><Auction key={auction.id} body={auction} /> );
+            return auct.map((auction, index) =><Auction key={index} body={auction} /> );
         }
     }
 

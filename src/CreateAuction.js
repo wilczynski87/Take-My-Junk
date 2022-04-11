@@ -13,14 +13,25 @@ const CreateAuction = () => {
 
     const [context, setMenu] = useContext(UserContext);
 
+    const timeCreator = (plus) => {
+        const today = new Date();
+        const day = (today.getDate() + plus) < 10 ? `0${(today.getDate() + plus)}` : (today.getDate() + plus);
+        const month = (today.getMonth()+1) < 10 ? `0${(today.getMonth()+1)}` : (today.getMonth()+1);
+        const year = today.getFullYear();
+        const startD = year + '-' + month + '-' + day;
+        return startD;
+        // const endD = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    }
+    console.log(timeCreator(7));
+
     const [myForm, setForm] = useState({
         title: 'meaningfull title...',
         junkType: 'junk type...',
-        volume: 'how much junk in m3',
+        volume: 0,
         containerType: 'container type...', 
-        containerNumber: 'number of containers...',
-        startDate: '',
-        endDate: '', 
+        containerNumber: 0,
+        startDate: timeCreator(0),
+        endDate:  timeCreator(10), 
         address: 'where to deliver an container?',
         notes: 'notes...',
         whoCreated: context.user.id
