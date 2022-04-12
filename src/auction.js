@@ -47,10 +47,11 @@ const Auction = ({body, index}) => {
             });
         const responseJSON = await response.json();
 
-        console.log(responseJSON);
-
         //after fetch
-        await setContext({type: 'setMenu', payload: 'main'});
+        console.log(context.auctions[index]);
+        let auctions = context.auctions;
+        auctions.splice(index, 1);
+        setContext({type: 'deleteAuction', payload: auctions});
     };
 
     return (
