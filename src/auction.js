@@ -27,11 +27,9 @@ const Auction = ({body, index}) => {
     }
 
     const deleteAuction = async () => {
-        console.log("delete auction start");
         //url builder
         const auctionId = body.id;
         const myUrl = url + auctionId;
-        console.log(myUrl);
 
         //fetch builder
         const header = {
@@ -48,7 +46,6 @@ const Auction = ({body, index}) => {
         const responseJSON = await response.json();
 
         //after fetch
-        console.log(context.auctions[index]);
         let auctions = context.auctions;
         auctions.splice(index, 1);
         setContext({type: 'deleteAuction', payload: auctions});

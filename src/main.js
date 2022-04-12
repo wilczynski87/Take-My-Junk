@@ -7,15 +7,25 @@ const auctionsURL = `http://localhost:8081/getAuctionsByConsumerId/`;
 
 const Main = () => {
     const [auctions, setAuctions] = useState([]);
+    const [auctionsEnd, setAuctionsEnd] = useState([]);
     const [clicked, setClicked] = useState(null);
+    const [clickedEnd, setClickedEnd] = useState(null);
     const [context, setContext] = useContext(UserContext);
 
     //what to show when no auctions to display?
-    const setAuc = (auct) => {
-        if(auctions === []) {
-            return <div>auctions</div>;
+    const setAuc = () => {
+        if(clicked === `w3-show` && auctions.length < 1 ) {
+            return <div>No auctions to display :-( </div>;
         } else {
             return auctions.map((auction, index) =><Auction key={index} body={auction} index={index} /> );
+        }
+    }
+
+    const setAucEnd = () => {
+        if(clickedEnd === `w3-show` && auctionsEnd.length < 1 ) {
+            return <div>No auctions to display :-( </div>;
+        } else {
+            return null;
         }
     }
 
@@ -38,17 +48,32 @@ const Main = () => {
                 headers: header
             });
             const auctionJSON = await auctionByCustomer.json();
-            setContext({type: 'setAuctions', payload: auctionJSON});
+            await setContext({type: 'setAuctions', payload: auctionJSON});
         }
 
         //fetch
         fetchFunction();
 
+        //after fetch
+
     },[]);
 
     const show = () => {
-        clicked ===`w3-hide` || null ? setClicked(`w3-show`) : setClicked(`w3-hide`);
-        if(clicked === null) setAuctions(context.auctions);
+        if(clicked === null) {
+            setAuctions(context.auctions);
+            setClicked(`w3-show`);
+        } else if(clicked === `w3-hide`) {
+            setClicked(`w3-show`);
+        } else setClicked(`w3-hide`);
+    }
+
+    const showEnd = () => {
+        if(clickedEnd === null) {
+            //setAuctionsEnd(context.auctionsEnd);
+            setClickedEnd(`w3-show`);
+        } else if(clickedEnd === `w3-hide`) {
+            setClickedEnd(`w3-show`);
+        } else setClickedEnd(`w3-hide`);
     }
 
     return (
@@ -59,9 +84,14 @@ const Main = () => {
             </div> <br />
             <div className="w3-container">
                 <div className={`w3-left`} onClick={() => show()}> Active Auctions </div>
+                <div className={`${clicked}`}> {setAuc()} </div>
             </div>
-            <div className={`${clicked}`}> {setAuc(auctions)} </div> <br />
-            <div className='w3-card-4'>Ended Auctions</div>
+             <br />
+
+            <div className="w3-container">
+                <div className='w3-left' onClick={() => showEnd()}>Ended Auctions</div> <br />
+                <div className={`${clickedEnd}`}> {setAucEnd()} </div>
+            </div>
         </div>
 )};
 
