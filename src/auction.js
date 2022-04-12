@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Bids from './bids';
 import deleteIcon from './cancel_black_24dp.svg';
 import { UserContext } from './context';
@@ -6,24 +6,25 @@ import { UserContext } from './context';
 const url = "http://localhost:8081/deleteAuction/";
 
 const Auction = ({body, index}) => {
-    const [bids, setBids] = useState("No offers yet...");
     const [click, setClick] = useState(null);
     const [context, setContext] = useContext(UserContext);
 
-    const displayBids = (bidsy) => {
-        if(bidsy === "No offers yet...") {
-            setBids(body.bids);
-            return (
-                bids === null ? <div>No offers yet...</div> : <div>{bidsy[bidsy.size-1]}</div>
-            );
+    const bidy = body.bids;
+
+    const displayBids = () => {
+        if(bidy < 1) {
+            return  <div>No offers yet...</div>;
+        } else if(click === `w3-show` ){
+            return bidy.map( (bid) => <Bids key = {bid.id} bidBody = {bid} /> );
         } else {
-            return bidsy.map( (bid) => <Bids key = {bid.id} bidBody = {bid} /> )
+             return <Bids bidBody = {bidy[bidy.length-1]} />;
         }
     }
 
-    const show = (clicked) => {
-        clicked ===` w3-hide` || null ? setClick(` w3-show`) : setClick(` w3-hide`);
-        //if(clicked === null) setBids(body.bids);
+    const show = () => {
+        if(click === `w3-hide` || click === null) {
+            setClick(`w3-show`);
+        } else setClick(`w3-hide`);
     }
 
     const deleteAuction = async () => {
@@ -54,7 +55,7 @@ const Auction = ({body, index}) => {
     return (
         <div className='w3-panel w3-card-4'>
             <div className='w3-cell-row w3-left'>
-                <div onClick={() => show(click)}>
+                <div onClick={() => show()}>
                     <div className='w3-left w3-cell-top' >{body.id}#</div>
                     <div className='w3-center w3-cell-top'>{body.title}</div>
                     <div className=''>{body.auctionStart}</div>
@@ -64,8 +65,8 @@ const Auction = ({body, index}) => {
                     src={deleteIcon} onClick={() => deleteAuction()} className='w3-right w3-cell-top' alt="delete Auction" />
                 </div>
             </div> <br />
-            <div className={`${click}`}>
-                {displayBids(bids)}
+            <div >
+                {displayBids()}
             </div>
         </div>
     )
