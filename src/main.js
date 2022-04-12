@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
+import Professional from './Professional';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByConsumerId/`;
 
@@ -11,6 +12,12 @@ const Main = () => {
     const [clicked, setClicked] = useState(null);
     const [clickedEnd, setClickedEnd] = useState(null);
     const [context, setContext] = useContext(UserContext);
+
+    const professional = true;
+
+    const profShow = () => {
+        return professional === true ? `w3-show` : `w3-hide`;
+    }
 
     //what to show when no auctions to display?
     const setAuc = () => {
@@ -91,6 +98,10 @@ const Main = () => {
             <div className="w3-container">
                 <div className='w3-left' onClick={() => showEnd()}>Ended Auctions</div> <br />
                 <div className={`${clickedEnd}`}> {setAucEnd()} </div>
+            </div>
+
+            <div className={`w3-container ${profShow()}`}>
+                <Professional />
             </div>
         </div>
 )};
