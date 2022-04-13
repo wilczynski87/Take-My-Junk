@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Bids from './bids';
 import deleteIcon from './cancel_black_24dp.svg';
+import MakeBid from './MakeBid';
 import { UserContext } from './context';
 
 const url = "http://localhost:8081/deleteAuction/";
@@ -10,6 +11,18 @@ const Auction = ({body, index}) => {
     const [context, setContext] = useContext(UserContext);
 
     const bidy = body.bids;
+
+    const ownerPrivilage = () => {
+        const ownerId = context.user.id;
+        const auctionId = body.whoCreated;
+
+        return ownerId === auctionId ? `w3-show` : `w3-hide`;
+    }
+
+    const professionalPrivilage = () => {
+        const professioanl = `licenseNo` in context.user;
+        return professioanl === true ? `w3-show` : `w3-hide`;
+    }
 
     const displayBids = () => {
         if(bidy < 1) {
@@ -61,12 +74,19 @@ const Auction = ({body, index}) => {
                     <div className=''>{body.auctionStart}</div>
                 </div>
                 <div>
-                <img 
-                    src={deleteIcon} onClick={() => deleteAuction()} className='w3-right w3-cell-top' alt="delete Auction" />
+                    <img 
+                        src={deleteIcon} 
+                        onClick={() => deleteAuction()} 
+                        className={`w3-right w3-cell-top ${ownerPrivilage()}`}
+                        alt="delete Auction" 
+                    />
                 </div>
             </div> <br />
-            <div >
+            <div name="given bids" >
                 {displayBids()}
+            </div>
+            <div name="Make a bid" className={professionalPrivilage()}>
+                <MakeBid />
             </div>
         </div>
     )

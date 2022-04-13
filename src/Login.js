@@ -1,9 +1,12 @@
+/*
+- need to create one fetch for login and backed should retrive right user
+*/
 import React, { useState, useContext } from 'react';
 import logo from './logo.svg';
 import { UserContext } from './context';
 
-// const serverURL = "http://localhost:4000/user1";
-const serverURL = "http://localhost:8081/consumerLogin/your@email.com/password...";
+const consURL = "http://localhost:8081/consumerLogin/your1@email.com/password...";
+const profURL = "http://localhost:8081/professionalLogin/your@email.com/password...";
 
 const LoginPanel = () => {
     const [userCont, setContext] = useContext(UserContext);
@@ -19,24 +22,41 @@ const LoginPanel = () => {
     }
 
     const getUser = async () => {
+        
         const info = {
             method: 'GET',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             }}
+
         const headers = { 'Content-Type': 'application/json'}
-        const response = await fetch(serverURL, headers);
-        if(response.ok) {
-            const userRecived = await response.json();
-            //console.log(userRecived);
+        
+        const responseCons = await fetch(consURL, headers);
+
+        if(responseCons.ok) {
+
+            const userRecived = await responseCons.json();
             const wrapper = {type: 'setUser', payload: userRecived, };
-            //console.log(userRecived);
+
             await setContext(wrapper);
             await setContext({type: 'setMenu', payload: `main`});
-        } else {
-            console.log(`Problem with a server status`)
-        }
+
+        } else if(responseCons.status === 404) {
+
+            const responseProf = await fetch(profURL, headers);
+
+            if(responseProf.ok) {
+
+                const userRecived = await responseProf.json();
+                const wrapper = {type: 'setUser', payload: userRecived, };
+                
+                await setContext(wrapper);
+                await setContext({type: 'setMenu', payload: `main`});
+
+            } else console.log(`There is not such user ${responseProf.status}`);
+
+        } else console.log(`Problem with a server status ${responseCons.status}`);
     }
 
     const reg = () => {

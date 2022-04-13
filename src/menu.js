@@ -31,6 +31,7 @@ const MenuPanel = () => {
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('main')}>Main</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('createAuction')}>Create Auction</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('settings')}>Settings</li>
+                <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('professional')}>Professional</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('logout')}>Log out</li>
             </ul>
         </div>

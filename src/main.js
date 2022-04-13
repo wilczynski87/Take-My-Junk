@@ -54,8 +54,10 @@ const Main = () => {
                 method: 'GET',
                 headers: header
             });
-            const auctionJSON = await auctionByCustomer.json();
-            await setContext({type: 'setAuctions', payload: auctionJSON});
+            if(auctionByCustomer.ok) {
+                const auctionJSON = await auctionByCustomer.json();
+                await setContext({type: 'setAuctions', payload: auctionJSON});
+            } else console.log(`Server problem ${auctionByCustomer.status}`)
         }
 
         //fetch
@@ -93,15 +95,19 @@ const Main = () => {
                 <div className={`w3-left`} onClick={() => show()}> Active Auctions </div>
                 <div className={`${clicked}`}> {setAuc()} </div>
             </div>
-             <br />
+            <br />
 
             <div className="w3-container">
                 <div className='w3-left' onClick={() => showEnd()}>Ended Auctions</div> <br />
                 <div className={`${clickedEnd}`}> {setAucEnd()} </div>
             </div>
 
-            <div className={`w3-container ${profShow()}`}>
-                <Professional />
+            <div 
+                className={`w3-container ${profShow()}`} 
+                onClick={() => setContext({type: 'setMenu', payload: 'professional'})}
+                >
+                {/* <Professional /> */}
+                Professional Menu
             </div>
         </div>
 )};
