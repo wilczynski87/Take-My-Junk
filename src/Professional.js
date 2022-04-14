@@ -20,16 +20,16 @@ const Professional = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         };
-        // const body = {
-        //     junkType: null,
-        //     distance: 0,
-        //     startDate: null,
-        //     endDate: null,
-        //     auctionStarted: null,
-        //     volume: 0,
-        //     lowestBid: null,
-        // }
-        const body = {};
+        
+        const body = {
+            junkType: null,
+            distance: 0,
+            startDate: null,
+            endDate: null,
+            auctionStarted: null,
+            volume: 0,
+            lowestBid: null,
+        }
 
         //fetch
         const fetching = async () => {
