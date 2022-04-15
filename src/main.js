@@ -30,7 +30,7 @@ const Main = () => {
 
     const setAucEnd = () => {
         if(clickedEnd === `w3-show` && auctionsEnd.length < 1 ) {
-            return <div>No auctions to display :-( </div>;
+            return <div>No auctions to display :-(</div>;
         } else {
             return null;
         }
@@ -92,7 +92,7 @@ const Main = () => {
                 <div className='w3-right'><MenuPanel /> </div> 
             </div> <br />
             <div className="w3-container">
-                <div className={`w3-left`} onClick={() => show()}> Active Auctions </div>
+                <div className={`w3-left`} onClick={() => show()}> Active Auctions </div> <br />
                 <div className={`${clicked}`}> {setAuc()} </div>
             </div>
             <br />

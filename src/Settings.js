@@ -10,12 +10,15 @@ const url = `http://localhost:8081/`;
 
 const Settings = () => {
     const [context, setContext] = useContext(UserContext);
-    const [user, setUser] = useState(context.user)
-    delete user.id;
+    const [user, setUser] = useState(context.user);
+
+    const hide = (condition) => {
+        return condition === `id` ? ` w3-hide` : null;
+    }
 
     const details = (key) => {
         return (
-            <div key={key} className=''>
+            <div key={key} className={hide(key)}>
                 <label>{key}:</label> 
                 <input 
                     name={key} 
