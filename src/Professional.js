@@ -8,7 +8,7 @@ const urlBid = ``;
 
 const Professional = () => {
     const [auctions, setAuctions] = useState([]);
-    const [clicked, setClicked] = useState(null);
+    const [clicked, setClicked] = useState(`w3-hide`);
     const [context, setContext] = useContext(UserContext);
     const [bidRefresh, setBidRefresh] = useState(false);
 
@@ -59,7 +59,7 @@ const Professional = () => {
     },[bidRefresh]);
 
     const displayHandler = () => {
-        clicked === null || clicked === `w3-hide` ? setClicked(`w3-show`) : setClicked(`w3-hide`);
+        clicked === `w3-hide` ? setClicked(`w3-show`) : setClicked(`w3-hide`);
     }
 
     const displayAuctions = () => {

@@ -101,13 +101,10 @@ const Main = () => {
                 <div className='w3-left' onClick={() => showEnd()}>Ended Auctions</div> <br />
                 <div className={`${clickedEnd}`}> {setAucEnd()} </div>
             </div>
+            <br />
 
-            <div 
-                className={`w3-container ${profShow()}`} 
-                onClick={() => setContext({type: 'setMenu', payload: 'professional'})}
-                >
-                {/* <Professional /> */}
-                Professional Menu
+            <div className={`w3-container ${profShow()}`} >
+                    <div className='w3-left' onClick={() => setContext({type: 'setMenu', payload: 'professional'})} >Professional Menu</div> <br />
             </div>
         </div>
 )};
