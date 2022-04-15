@@ -6,7 +6,7 @@ import { UserContext } from './context';
 
 const url = "http://localhost:8081/deleteAuction/";
 
-const Auction = ({body, index}) => {
+const Auction = ({body, index, refreshBid}) => {
     const [click, setClick] = useState(null);
     const [context, setContext] = useContext(UserContext);
 
@@ -86,7 +86,7 @@ const Auction = ({body, index}) => {
                 {displayBids()}
             </div>
             <div name="Make a bid" className={professionalPrivilage()}>
-                <MakeBid auctionId={body.id} />
+                <MakeBid auctionId={body.id} refreshBid={refreshBid} />
             </div>
         </div>
     )

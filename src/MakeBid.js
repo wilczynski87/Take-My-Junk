@@ -1,8 +1,11 @@
+/*
+- odswierzanie bid-ow, po zlozeniu oferty
+*/
 import React, {useState, useContext} from 'react';
 import { UserContext } from './context';
 const url = `http://localhost:8081/makeBid/`; //makeBid/{professionalId}/{auctionId}
 
-const MakeBid = ({auctionId}) => {
+const MakeBid = ({auctionId, refreshBid}) => {
     const [inputData, setInputData] = useState({
         price: 0,
         timeDays: 7
@@ -37,12 +40,10 @@ const MakeBid = ({auctionId}) => {
             if(response.ok) {
                 const responseJson = await response.json();
                 console.log("Offer made!");
+                await refreshBid();
             } else console.log("Problem with response " + response.status);
         }
         fetchf();
-
-        //fetch
-        
     }
 
     const inputHandles = (event) => {

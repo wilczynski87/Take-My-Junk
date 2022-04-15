@@ -10,6 +10,11 @@ const Professional = () => {
     const [auctions, setAuctions] = useState([]);
     const [clicked, setClicked] = useState(null);
     const [context, setContext] = useContext(UserContext);
+    const [bidRefresh, setBidRefresh] = useState(false);
+
+    const refreshBid = () => {
+        bidRefresh === false ?  setBidRefresh(true) :  setBidRefresh(false);
+    }
     
     useEffect(() => {
         //url build
@@ -20,7 +25,7 @@ const Professional = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         };
-        
+
         const body = {
             junkType: null,
             distance: 0,
@@ -48,10 +53,10 @@ const Professional = () => {
             }
         }
         fetching();
-
         //after fetch
+        console.log(bidRefresh);
 
-    },[]);
+    },[bidRefresh]);
 
     const displayHandler = () => {
         clicked === null || clicked === `w3-hide` ? setClicked(`w3-show`) : setClicked(`w3-hide`);
@@ -62,7 +67,7 @@ const Professional = () => {
             return <div>No Auction avaliable</div>
         } else
         return (
-        auctions.map((auction, index) => <Auction key={index} body={auction} index={index} />)
+        auctions.map((auction, index) => <Auction key={index} body={auction} index={index} refreshBid={refreshBid} />)
         );
     }
 
