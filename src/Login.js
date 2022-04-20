@@ -7,11 +7,12 @@ import { UserContext } from './context';
 
 const consURL = "http://localhost:8081/consumerLogin/your1@email.com/password...";
 const profURL = "http://localhost:8081/professionalLogin/your@email.com/password...";
+const url = `http://localhost:8081/getUser/`;
 
 const LoginPanel = () => {
     const [userCont, setContext] = useContext(UserContext);
 
-    const [loginDetails, setLoginDetails] = useState({'login': 'login...', 'password': 'password...'});
+    const [loginDetails, setLoginDetails] = useState({'login': 'your@email.com', 'password': 'password...'});
 
     //supouse to ask for data of particular user
     const submitHandler = event => {
@@ -22,17 +23,19 @@ const LoginPanel = () => {
     }
 
     const getUser = async () => {
+        //URL builder
+        const myUrl = url + loginDetails.login + `/` + loginDetails.password;
         
+        //fetch builder
         const info = {
             method: 'GET',
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
-            }}
-
-        const headers = { 'Content-Type': 'application/json'}
+            }
+        };
         
-        const responseCons = await fetch(consURL, headers);
+        const responseCons = await fetch(myUrl, info);
 
         if(responseCons.ok) {
 
@@ -42,7 +45,7 @@ const LoginPanel = () => {
             await setContext(wrapper);
             await setContext({type: 'setMenu', payload: `main`});
 
-        } else if(responseCons.status === 404) {
+        /*}  else if(responseCons.status === 404) {
 
             const responseProf = await fetch(profURL, headers);
 
@@ -54,7 +57,7 @@ const LoginPanel = () => {
                 await setContext(wrapper);
                 await setContext({type: 'setMenu', payload: `main`});
 
-            } else console.log(`There is not such user ${responseProf.status}`);
+            } else console.log(`There is not such user ${responseProf.status}`); */
 
         } else console.log(`Problem with a server status ${responseCons.status}`);
     }
