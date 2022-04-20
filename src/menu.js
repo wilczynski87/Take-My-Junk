@@ -7,8 +7,11 @@ import menuIcon from './menu_black_24dp.svg';
 
 const MenuPanel = () => {
     const [context, dispatch] = useContext(UserContext);
+    const [ddmenu, setDdmenu] = useState(false);
 
-    const[ddmenu, setDdmenu] = useState(false);
+    const profShow = () => {
+        return `licenseNo` in context.user ? `w3-show` : `w3-hide`;
+    }
 
     const wrapper = (menuName) => {
         if(menuName === `logout`) {
@@ -31,7 +34,7 @@ const MenuPanel = () => {
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('main')}>Main</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('createAuction')}>Create Auction</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('settings')}>Settings</li>
-                <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('professional')}>Professional</li>
+                <li href="#" className={`w3-bar-item w3-button ${profShow()}`} onClick={() => wrapper('professional')}>Professional</li>
                 <li href="#" className="w3-bar-item w3-button" onClick={() => wrapper('logout')}>Log out</li>
             </ul>
         </div>

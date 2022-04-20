@@ -13,13 +13,11 @@ const Main = () => {
     const [clickedEnd, setClickedEnd] = useState(null);
     const [context, setContext] = useContext(UserContext);
 
-    const professional = true;
-
     const profShow = () => {
-        return professional === true ? `w3-show` : `w3-hide`;
+        return `licenseNo` in context.user ? `w3-show` : `w3-hide`;
     }
 
-    //what to show when no auctions to display?
+    //what to show when no auctioreturn `licenseNo` in context.user ?ns to display?
     const setAuc = () => {
         if(clicked === `w3-show` && auctions.length < 1 ) {
             return <div>No auctions to display :-( </div>;
