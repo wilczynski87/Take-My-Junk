@@ -7,7 +7,7 @@ import React, { useState, useContext } from 'react';
 import MenuPanel from './menu';
 import { UserContext } from './context';
 
-const url = "http://localhost:8081/createAuction/"
+const url = "http://localhost:8081/createAuction/";
 
 const CreateAuction = () => {
 
@@ -20,9 +20,7 @@ const CreateAuction = () => {
         const year = today.getFullYear();
         const startD = year + '-' + month + '-' + day;
         return startD;
-        // const endD = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     }
-    console.log(timeCreator(7));
 
     const [myForm, setForm] = useState({
         title: 'meaningfull title...',
@@ -34,13 +32,14 @@ const CreateAuction = () => {
         endDate:  timeCreator(10), 
         address: 'where to deliver an container?',
         notes: 'notes...',
-        whoCreated: context.user.id
+        //whoCreated: context.user.id
     });
 
     const submitHandler = async event => {
         event.preventDefault();
 
-        const myId = myForm.whoCreated;
+        // const myId = myForm.whoCreated;
+        const myId = context.user.id;
 
         //url builder
         let urlId = url + myId;
@@ -52,7 +51,7 @@ const CreateAuction = () => {
             'Content-Type': 'application/json'
         };
         const body = JSON.stringify(myForm); //let dataToSend = JSON.stringify({myForm});
-        console.log(body);
+        console.log(myForm);
 
         //fetch
         const response = await fetch( urlId,

@@ -86,7 +86,7 @@ const Auction = ({body, index, refreshBid}) => {
                 {displayBids()}
             </div>
             <div name="Make a bid" className={professionalPrivilage()}>
-                <MakeBid auctionId={body.id} refreshBid={refreshBid} />
+                <MakeBid refreshBid={refreshBid} auctionBody={body} />
             </div>
         </div>
     )

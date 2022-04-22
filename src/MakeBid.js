@@ -5,7 +5,7 @@ import React, {useState, useContext} from 'react';
 import { UserContext } from './context';
 const url = `http://localhost:8081/makeBid/`; //makeBid/{professionalId}/{auctionId}
 
-const MakeBid = ({auctionId, refreshBid}) => {
+const MakeBid = ({refreshBid, auctionBody}) => {
     const [inputData, setInputData] = useState({
         price: 0,
         timeDays: 7
@@ -16,7 +16,7 @@ const MakeBid = ({auctionId, refreshBid}) => {
         event.preventDefault();
         //URL builder
         const profId = context.user.id;
-        const auctId = auctionId;
+        const auctId = auctionBody.id;
         const myUrl = url + profId + `/` + auctId;
 
         //fetch builder
@@ -29,8 +29,12 @@ const MakeBid = ({auctionId, refreshBid}) => {
             price: inputData.price,
             howManyDays: inputData.timeDays,
             auctionId: auctId,
+            profFirm: context.user.firm,
+            startDate: auctionBody.startDate,
+            endDate: auctionBody.endDate,
             whoBid: profId
         };
+        console.log(body);
         const fetchf = async () => {
             const response = await fetch(myUrl, {
                 method: 'POST',
@@ -39,8 +43,8 @@ const MakeBid = ({auctionId, refreshBid}) => {
             });
             if(response.ok) {
                 const responseJson = await response.json();
-                console.log("Offer made!");
                 await refreshBid();
+                console.log(response);
             } else console.log("Problem with response " + response.status);
         }
         fetchf();

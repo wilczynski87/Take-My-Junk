@@ -4,10 +4,11 @@ import MenuPanel from './menu';
 import Auction from './auction';
 
 const urlFiltered = `http://localhost:8081/getAuctionByFilers/`;
-const urlBid = ``;
+const urlBid = `http://localhost:8081/getAuctionsWithMyBids/`;
 
 const Professional = () => {
     const [auctions, setAuctions] = useState([]);
+    const [auctionsWithBid, setAuctionsWithBid] = useState([]);
     const [clicked, setClicked] = useState(`w3-hide`);
     const [context, setContext] = useContext(UserContext);
     const [bidRefresh, setBidRefresh] = useState(false);
@@ -45,18 +46,43 @@ const Professional = () => {
             });
             if(response.ok) {
                 const responseJson = await response.json();
-                //console.log("response ok")
-                // return responseJson;
                 setAuctions(responseJson)
             } else {
-                console.log(`Problem with request ${response.status}`);
+                console.log(`Problem with request Filtered Auctions ${response.status}`);
             }
         }
         fetching();
         //after fetch
-        console.log(bidRefresh);
 
     },[bidRefresh]);
+
+    //Auctions with BID
+    useEffect(() => {
+        //url build
+        const myUrlAuctionsWithBids = urlBid + context.user.id;
+
+        //fetch build
+        const header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+
+        //fetch
+        const fetching = async () => {
+            const response = await fetch(myUrlAuctionsWithBids, {
+                method: 'GET',
+                headers: header,
+            });
+            if(response.ok) {
+                const responseJson = await response.json();
+                setAuctionsWithBid(responseJson)
+            } else {
+                console.log(`Problem with request Auctions With Bids ${response.status}`);
+            }
+        }
+        fetching();
+
+    }, [bidRefresh] );
 
     const displayHandler = () => {
         clicked === `w3-hide` ? setClicked(`w3-show`) : setClicked(`w3-hide`);
@@ -71,13 +97,25 @@ const Professional = () => {
         );
     }
 
+    const displayAuctionsWithMyBids = () => {
+        if(auctions < 1) {
+            return <div>No Auctions with your Bid on it :-(</div>
+        } else
+        return (
+            auctionsWithBid.map((auction, index) => <Auction key={index} body={auction} index={index} refreshBid={refreshBid} />)
+        );
+    }
+
     return (
         <div>
             <div className='w3-panel w3-border'> 
                 <div className='w3-left w3-border'>Professional Menu:</div> 
                 <div className='w3-right w3-border'><MenuPanel /> </div>
             </div> <br />
-            <div>My bids</div> <br />
+            <div>
+                <div>My bids</div>
+                <div className={``}> {displayAuctionsWithMyBids()} </div>
+            </div> <br />
             <div>
                 <div onClick = {() => displayHandler()}>Auctions</div> <br />
                 <div className={`${clicked}`}> {displayAuctions()} </div>

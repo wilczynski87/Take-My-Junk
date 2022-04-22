@@ -4,7 +4,7 @@ import Auction from './auction';
 import MenuPanel from './menu';
 import Professional from './Professional';
 
-const auctionsURL = `http://localhost:8081/getAuctionsByConsumerId/`;
+const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
 
 const Main = () => {
     const [auctions, setAuctions] = useState([]);
