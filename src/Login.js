@@ -2,7 +2,7 @@
 - need to create one fetch for login and backed should retrive right user
 */
 import React, { useState, useContext } from 'react';
-import logo from './logo.svg';
+import logo from './myLogo.png';
 import { UserContext } from './context';
 
 const consURL = "http://localhost:8081/consumerLogin/your1@email.com/password...";
