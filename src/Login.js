@@ -1,12 +1,7 @@
-/*
-- need to create one fetch for login and backed should retrive right user
-*/
 import React, { useState, useContext } from 'react';
 import logo from './myLogo.png';
 import { UserContext } from './context';
 
-const consURL = "http://localhost:8081/consumerLogin/your1@email.com/password...";
-const profURL = "http://localhost:8081/professionalLogin/your@email.com/password...";
 const url = `http://localhost:8081/getUser/`;
 
 const LoginPanel = () => {
@@ -14,12 +9,14 @@ const LoginPanel = () => {
 
     const [loginDetails, setLoginDetails] = useState({'login': 'your@email.com', 'password': 'password...'});
 
-    //supouse to ask for data of particular user
+    //Asking server for an user
     const submitHandler = event => {
         event.preventDefault();
         let dataToSend = JSON.stringify({loginDetails});
-        // console.log("Data to send " + dataToSend);
         getUser();
+        /*
+            validation
+        */
     }
 
     const getUser = async () => {
@@ -45,19 +42,10 @@ const LoginPanel = () => {
             await setContext(wrapper);
             await setContext({type: 'setMenu', payload: `main`});
 
-        /*}  else if(responseCons.status === 404) {
+        } else if(responseCons.status === 404) {
 
-            const responseProf = await fetch(profURL, headers);
-
-            if(responseProf.ok) {
-
-                const userRecived = await responseProf.json();
-                const wrapper = {type: 'setUser', payload: userRecived, };
-                
-                await setContext(wrapper);
-                await setContext({type: 'setMenu', payload: `main`});
-
-            } else console.log(`There is not such user ${responseProf.status}`); */
+            console.log(responseCons.status + `wrong details or User do not exist`);
+            alert(`wrong details or User do not exist`);
 
         } else console.log(`Problem with a server status ${responseCons.status}`);
     }
