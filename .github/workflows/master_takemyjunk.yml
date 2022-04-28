@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'TakeMyJunk'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E2D0A98FE0F84F24B4BD0B1F5F276993 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_AA731F96C46F45B8BF50D136EC5D24F7 }}
           package: .
