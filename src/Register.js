@@ -1,15 +1,13 @@
-/*
-- function to validate user type on backend
-- fetch zrobic
-*/
 import React, {useState, useContext} from 'react';
 import backIcon from './arrow_back_ios_black_24dp.svg';
 import { UserContext } from './context';
+import Alert from './Alert.js';
 
 const url = `http://localhost:8081/`;
 
 const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
+    const [displayAlert, setAlert] = useState(`w3-hide`);
 
     const [user, setUser] = useState({
         fullName: 'your full name...',
@@ -119,7 +117,7 @@ const Register = () => {
         //after fetch
         if(response.status === 226) {
             console.log("Client already exist");
-            alert("Client already exist");
+            alert();
         } else if(response.ok) {
             const responseJson = await response.json();
             console.log(responseJson);
@@ -135,6 +133,10 @@ const Register = () => {
         setMenu({type: 'setMenu', payload: 'login'});
     }
 
+    const alert = () => {
+        setAlert(`w3-show`);
+    }
+
     const onValueChange = (event) => {
         setUser({
             ...user,
@@ -144,42 +146,46 @@ const Register = () => {
 
     return(
         <div>
-            <div className='w3-panel'>
-                <div className='w3-left' >Registration: </div>
-                <img src={backIcon} className="w3-right" alt="back to Login In menu" onClick={back} />
-            </div>
-            <div>
-                <form onSubmit={(event) => submitHandler(event)}>
-                    {
-                    Object.keys(user)
-                        .filter((key) => {
-                            return user.userType === `Consumer` && key === `licenseNo` ? null : key;
-                        })
-                        .filter((key) => {
-                            return key === `userType` ? null : key; 
-                        })
-                        .map((key) => {
-                        return inputer(key);
-                        })
-                    }
-                    <input 
-                        type='radio' 
-                        value='Consumer' 
-                        name='userType' 
-                        onChange={onValueChange}
-                        checked = {user.userType === `Consumer`}
-                    />
-                    <label>I am Consumer - I have junk to dispouse</label> <br />
-                    <input 
-                        type='radio' 
-                        value='Provider' 
-                        name='userType' 
-                        onChange={onValueChange}
-                        checked = {user.userType === `Provider`}
-                    /> 
-                    <label>I am Provider - I will dispouse yours junk</label><br />
-                    <input type='submit' value='Submit' />
-                </form>
+            <Alert message={`User already exist!`} displayAlert={displayAlert} setAlert={setAlert} />
+            <div className = {displayAlert === `w3-show` ? `w3-opacity` : null}>
+                
+                <div className='w3-panel'>
+                    <div className='w3-left' >Registration: </div>
+                    <img src={backIcon} className="w3-right" alt="back to Login In menu" onClick={back} />
+                </div>
+                <div>
+                    <form onSubmit={(event) => submitHandler(event)}>
+                        {
+                        Object.keys(user)
+                            .filter((key) => {
+                                return user.userType === `Consumer` && key === `licenseNo` ? null : key;
+                            })
+                            .filter((key) => {
+                                return key === `userType` ? null : key; 
+                            })
+                            .map((key) => {
+                            return inputer(key);
+                            })
+                        }
+                        <input 
+                            type='radio' 
+                            value='Consumer' 
+                            name='userType' 
+                            onChange={onValueChange}
+                            checked = {user.userType === `Consumer`}
+                        />
+                        <label>I am Consumer - I have junk to dispouse</label> <br />
+                        <input 
+                            type='radio' 
+                            value='Provider' 
+                            name='userType' 
+                            onChange={onValueChange}
+                            checked = {user.userType === `Provider`}
+                        /> 
+                        <label>I am Provider - I will dispouse yours junk</label><br />
+                        <input type='submit' value='Submit' />
+                    </form>
+                </div>
             </div>
         </div>
     );

@@ -7,6 +7,7 @@ import CreateAuction from './CreateAuction';
 import Register from './Register';
 import Settings from './Settings';
 import Professional from './Professional.js';
+import Alert from './Alert';
 import { UserContext } from './context';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           {userMenu[`menu`] === `register` ? <Register /> : null}
           {userMenu[`menu`] === `professional` ? <Professional /> : null}
           {userMenu[`menu`] === `settings` ? <Settings /> : null}
+          {userMenu[`menu`] === `alert` ? <Alert /> : null}
           {/* <Loading /> */}
           {/* <LoginPanel />
           <Main /> */}
