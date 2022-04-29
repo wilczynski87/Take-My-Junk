@@ -80,9 +80,8 @@ const Register = () => {
             alert("Passwords do not match");
         } else {
             const toSend = JSON.stringify(user);
-            console.log(toSend);
+            // console.log(toSend);
             submitData();
-            back();
         }
     }
 
@@ -92,7 +91,6 @@ const Register = () => {
         const prof = "professionalSignIn";
         let urlFetch = url;
         urlFetch += user.userType === `Consumer`? cons : prof;
-        console.log(urlFetch);
 
         //Body creator
         const header = {};
@@ -101,8 +99,10 @@ const Register = () => {
             }
         delete data.rPassword;
         delete data.userType;
+
         if(user.userType === `Consumer`) delete data.licenseNo;
 
+        //fetch
         const response = await fetch(urlFetch, {
             method: 'POST',
             credentials: 'same-origin',
@@ -113,10 +113,22 @@ const Register = () => {
             redirect: 'follow',
             referrerPolicy: 'no-referrer', 
             body: JSON.stringify(data)
-            });
-
+            }
+        );
+        
+        //after fetch
+        if(response.status === 226) {
+            console.log("Client already exist");
+            alert("Client already exist");
+        } else if(response.ok) {
             const responseJson = await response.json();
             console.log(responseJson);
+            back();
+        } else {
+            console.log(`error code: ${response.status}`);
+            alert("Can not register this Client");
+        }
+        
     }
 
     const back = () => {
