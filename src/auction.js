@@ -10,7 +10,7 @@ const Auction = ({body, index, refreshBid}) => {
     const [click, setClick] = useState(null);
     const [context, setContext] = useContext(UserContext);
 
-    const bidy = body.bids;
+    const bidy = body.bids.sort((a, b) => b.price - a.price);
 
     const ownerPrivilage = () => {
         const ownerId = context.user.id;
