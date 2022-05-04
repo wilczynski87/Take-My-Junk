@@ -14,16 +14,6 @@ const Main = () => {
     const [clickedEnd, setClickedEnd] = useState(null);
     const [context, setContext] = useContext(UserContext);
 
-    //my map from mapbox.com
-    // var mapboxgl = require('/node_modules/mapbox-gl/dist/mapbox-gl.js');
- 
-    // mapboxgl.accessToken = 'pk.eyJ1Ijoid2lsY3p5bnNraTg3IiwiYSI6ImNsMm9wYnFyejEyZGYzZW1haDltbXM5eGkifQ.dUUyFLQdnnzDgKXOrfYqGw';
-    // var map = new mapboxgl.Map({
-    // container: 'mapId',
-    // style: 'mapbox://styles/mapbox/streets-v11'
-    // });
-    //map ends here
-
     const profShow = () => {
         return `licenseNo` in context.user ? `w3-show` : `w3-hide`;
     }

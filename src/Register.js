@@ -145,9 +145,9 @@ const Register = () => {
     }
 
     return(
-        <div>
-            <Alert message={`User already exist!`} displayAlert={displayAlert} setAlert={setAlert} />
-            <div className = {displayAlert === `w3-show` ? `w3-opacity` : null}>
+        <div className=''>
+            <div><Alert message={`User already exist!`} displayAlert={displayAlert} setAlert={setAlert} /></div>
+            <div>
                 
                 <div className='w3-panel'>
                     <div className='w3-left' >Registration: </div>
