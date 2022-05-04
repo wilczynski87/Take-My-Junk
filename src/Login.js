@@ -17,8 +17,8 @@ const LoginPanel = () => {
         event.preventDefault();
         setIsLoading(true);
         let dataToSend = JSON.stringify({loginDetails});
-        //setTimeout(() => getUser(), 2000); //for Loading test purpose
-        getUser();
+        setTimeout(() => getUser(), 2000); //for Loading test purpose
+        // getUser();
         /*
             validation
         */
@@ -68,7 +68,7 @@ const LoginPanel = () => {
 
     return(
         <div className=''>
-            { isLoading === true ? <FetchLoading /> : 
+            { isLoading === true ? <FetchLoading message='I am loading User details' /> : null }
                 <div>
                     <img src={logo} className="App-logo" alt="logo" />
                     <form
@@ -110,7 +110,7 @@ const LoginPanel = () => {
                     <p>Facebook Icon</p>
                     <p>Google Icon</p>
                 </div>
-            }
+            
         </div>
     )
 };

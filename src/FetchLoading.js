@@ -1,10 +1,12 @@
 import React, {} from 'react';
+import SyncIcon from './sync.svg';
 
-const FetchLoading = () => {
+const FetchLoading = ({message}) => {
 
     return (
-        <div>
-            I am beeing loading from the URL!
+        <div className={`w3-container w3-card w3-green w3-display-middle w3-round spinner-container`} >
+            <div>{message === null ? <h3>Loading...</h3> : <h3>{message}</h3>}</div>
+            <div className=''><img className='loading-spinner' src={SyncIcon} /></div>
         </div>
     )
 }
