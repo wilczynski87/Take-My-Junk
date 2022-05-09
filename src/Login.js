@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import logo from './myLogo.png';
 import { UserContext } from './context';
 import FetchLoading from './FetchLoading';
+import Alert from './Alert';
 
 
 const url = `http://localhost:8081/getUser/`;
@@ -11,14 +12,15 @@ const LoginPanel = () => {
 
     const [loginDetails, setLoginDetails] = useState({'login': 'your@email.com', 'password': 'password...'});
     const [isLoading, setIsLoading] = useState(false);
+    const [alert, setAlert] = useState(`w3-hide`);
 
     //Asking server for an user
     const submitHandler = event => {
         event.preventDefault();
         setIsLoading(true);
         let dataToSend = JSON.stringify({loginDetails});
-        setTimeout(() => getUser(), 2000); //for Loading test purpose
-        // getUser();
+        // setTimeout(() => getUser(), 2000); //for Loading test purpose
+        getUser();
         /*
             validation
         */
@@ -53,7 +55,7 @@ const LoginPanel = () => {
 
             setIsLoading(false);
             console.log(responseCons.status + `wrong details or User do not exist`);
-            alert(`wrong details or User do not exist`);
+            setAlert(`wrong details or User do not exist`);
 
         } else { 
             console.log(`Problem with a server status ${responseCons.status}`);
@@ -69,6 +71,7 @@ const LoginPanel = () => {
     return(
         <div className=''>
             { isLoading === true ? <FetchLoading message='I am loading User details' /> : null }
+            { alert !== `w3-hide` ? <Alert message={alert} setAlert={setAlert} /> : null }
                 <div>
                     <img src={logo} className="App-logo" alt="logo" />
                     <form

@@ -57,7 +57,7 @@ const Main = () => {
                 const auctionJSON = await auctionByCustomer.json();
                 await setContext({type: 'setAuctions', payload: auctionJSON});
             } else console.log(`Server problem ${auctionByCustomer.status}`)
-        }
+        };
 
         //fetch
         fetchFunction();

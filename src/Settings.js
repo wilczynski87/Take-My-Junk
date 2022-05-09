@@ -1,16 +1,17 @@
 /*
-- info about changed details -> succes or NOT?!
 - option to swich from consumer to Provider
 */
 import React, {useState, useContext} from 'react';
 import { UserContext } from './context';
 import Menu from './menu';
+import Alert from './Alert';
 
 const url = `http://localhost:8081/`;
 
 const Settings = () => {
     const [context, setContext] = useContext(UserContext);
     const [user, setUser] = useState(context.user);
+    const [alert, setAlert] = useState(`w3-hide`);
 
     const hide = (condition) => {
         return condition === `id` ? ` w3-hide` : null;
@@ -39,7 +40,7 @@ const Settings = () => {
         event.preventDefault();
         //url builder
         let myUrl = url + [`licenseNo` in user ? `professionalChange/` : `consumerChange/`];
-        myUrl += `${user.email}/${user.password}`;
+        myUrl += `${context.user.email}/${context.user.password}`;
         
         //fetch builder
         const header = {
@@ -57,11 +58,20 @@ const Settings = () => {
             headers: header,
             body: JSON.stringify(data)
         });
-        const responseJson = await response.json();
-        console.log(responseJson);
+        if(response.status === 202) {
+            const responseJson = await response.json();
+            console.log(responseJson);
+            setContext({type: 'setUser', payload: responseJson});
+        } else if(response.status === 226) { //if number goood?
+            console.log(response);
+            setAlert("User with that email, alredy exist");
+        } else {
+            console.log(response);
+            setAlert("Can not find yours details! or other issue...");
+        }
 
         //info about changed details -> succes or NOT?!
-        setContext({type: 'setUser', payload: responseJson});
+        
     }
 
     const deleteAccount = async (event) => {
@@ -89,6 +99,7 @@ const Settings = () => {
 
     return (
         <div>
+            {alert !== `w3-hide` ? <Alert message={alert} setAlert={setAlert} /> : null}
             <div className='w3-panel'> 
                 <div className='w3-left'>I am Settings!</div> 
                 <div className='w3-right'><Menu /></div> 
