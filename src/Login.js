@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import logo from './myLogo.png';
+import logo from './myLogo2.png';
 import { UserContext } from './context';
 import FetchLoading from './FetchLoading';
 import Alert from './Alert';
