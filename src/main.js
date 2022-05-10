@@ -103,8 +103,8 @@ const Main = () => {
                 <div className='w3-left'>Hello {firstName(context.user.fullName)}</div> 
                 <div className='w3-right'><MenuPanel /> </div> 
             </div> <br />
-            {/* <div classsName="w3-container" ><MyMap /> </div> <br /> */}
-            <div className="w3-container" style={{border: 1}} id='mapId'>:<MapsOrginal /> :</div> <br />
+            <div classsName="w3-container" ><MyMap /> </div> <br />
+            {/* <div className="w3-container" style={{border: 1}} id='mapId'>:<MapsOrginal /> :</div> <br /> */}
             <div className="w3-container">
                 <div className={`w3-left`} onClick={() => show()}> Active Auctions </div> <br />
                 <div className={`${clicked}`}> {setAuc()} </div>
