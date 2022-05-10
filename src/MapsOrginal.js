@@ -1,6 +1,6 @@
 // src/MapsOrginal.js
 import * as React from 'react';
-
+import * MarkerDown form './swipe_down.svg';
 
 export default class MapsOrginal extends React.Component {
   mapRef = React.createRef();
