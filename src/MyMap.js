@@ -1,20 +1,16 @@
-// src/MapsOrginal.js
-import * as React from 'react';
+import React,{useState, useRef, useEffect} from 'react';
 import myLocationIcon from './pointer.png';
-import SFHIcon from './been2.svg';
+import skipForHireIcons from './been2.svg';
 
-export default class MapsOrginal extends React.Component {
-  mapRef = React.createRef();
+const MyMap = () => {
+  const mapRef = useRef(null);
 
-  state = {
-    // The map instance to use during cleanup
-    map: null
-  };
+  const [myMap, setMyMap] = useState(null);
 
-  componentDidMount() {
+  useEffect(() => {
 
     const myPositionCord = {lat: 52.5, lng: 13.4};
-    const skipForHireCord = {lat: 52.45, lng: 13.4};
+    const skipForHireCord = {lat: 51.5, lng: 12.4};
 
     const H = window.H;
     const platform = new H.service.Platform({
@@ -29,11 +25,12 @@ export default class MapsOrginal extends React.Component {
       defaultLayers.vector.normal.map,
       {
         // This map is centered over Europe
-        center: myPositionCord,
+        center: { lat: 50, lng: 5 },
         zoom: 4,
         pixelRatio: window.devicePixelRatio || 1
       }
-    );
+    )
+  
  
     // MapEvents enables the event system
     // Behavior implements default interactions for pan/zoom (also on mobile touch environments)
@@ -49,35 +46,36 @@ export default class MapsOrginal extends React.Component {
     //my code:
     // Create a marker icon from an image URL:
     const myPositionIcon = new H.map.Icon(myLocationIcon);
-    const skipForHireIcon = new H.map.Icon(SFHIcon);
+    // const skipForHireIcon = new H.map.Icon(skipForHireIcons);
 
     // Create a marker using the previously instantiated icon:
     const myPosition = new H.map.Marker(myPositionCord, { icon: myPositionIcon });
-    const skipForHirePosition = new H.map.Marker(skipForHireCord, { icon: skipForHireIcon });
+    // const skipForHirePosition = new H.map.Marker(skipForHireCord, { icon: skipForHireIcon });
     
 
     // Add the marker to the map:
     map.addObject(myPosition);
-    map.addObject(skipForHirePosition);
+    // map.addObject(skipForHirePosition);
 
     //center on my position
     let coords = myPositionCord;
     map.setCenter(coords);
     map.setZoom(10);
 
-    this.setState({ map });
-  }
+    setMyMap({ map });
 
-  componentWillUnmount() {
-    // Cleanup after the map to avoid memory leaks when this component exits the page
-    this.state.map.dispose();
-  }
+    return () => {
+      map.dispose();
+      setMyMap(null)
+    };
 
-  render() {
+  },[]);
 
-    return (
-      // Set a height on the map so it will display
-      <div ref={this.mapRef} style={{ height: "200px" }} />
-    );
-  }
+  
+  return (
+    // Set a height on the map so it will display
+    <div ref={this.mapRef} style={{ height: "200px" }} />
+  );
 }
+
+export default MyMap;

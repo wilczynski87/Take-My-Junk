@@ -3,8 +3,8 @@ import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
 import Professional from './Professional';
-import Mapy from './map';
 import MapsOrginal from './MapsOrginal';
+import MyMap from './MyMap';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
 
@@ -85,13 +85,25 @@ const Main = () => {
         } else setClickedEnd(`w3-hide`);
     }
 
+    // //my code:
+    // const myMarker = <svg src={MarkerDown} />;
+    // const map = MapsOrginal;
+
+    // let icon = new H.map.DomIcon(myMarker),
+    //   coords = {lat: -22.8906, lng: -43.2283},
+    //   marker = new H.map.DomMarker(coords, {icon: icon});
+   
+    // map.setCenter(coords);
+    // map.setZoom(18);
+    // map.addObject(marker);
+
     return (
         <div className=''>
             <div className='w3-panel'>
                 <div className='w3-left'>Hello {firstName(context.user.fullName)}</div> 
                 <div className='w3-right'><MenuPanel /> </div> 
             </div> <br />
-            {/* <div className="w3-container" id='mapId'><Mapy /> </div> <br /> */}
+            {/* <div classsName="w3-container" ><MyMap /> </div> <br /> */}
             <div className="w3-container" style={{border: 1}} id='mapId'>:<MapsOrginal /> :</div> <br />
             <div className="w3-container">
                 <div className={`w3-left`} onClick={() => show()}> Active Auctions </div> <br />
