@@ -1,26 +1,26 @@
-import * as React from 'react';
+import React, {useRef, useEffect} from 'react';
 import myLocationIcon from './pointer.png';
-import SFHIcon from './been2.svg';
+import sFHIcon from './been2.svg';
 
 
 const MyMap = () => {
   // Create a reference to the HTML element we want to put the map on
-  const mapRef = React.useRef(null);
+  const mapRef = useRef(null);
 
-  const myPositionCord = {lat: 52.5, lng: 13.4};
-  const skipForHireCord = {lat: 52.45, lng: 13.4};
+  const myPositionCord = {lat: 53.301769, lng: -1.102749};
+  const skipForHireCord = {lat: 53.251769, lng: -1.152749};
 
   /**
    * Create the map instance
    * While `useEffect` could also be used here, `useLayoutEffect` will render
    * the map sooner
    */
-  React.useLayoutEffect(() => {
+  useEffect(() => {
     // `mapRef.current` will be `undefined` when this hook first runs; edge case that
     if (!mapRef.current) return;
     const H = window.H;
     const platform = new H.service.Platform({
-        apikey: "hrn:here:authorization::org932282844:project/1652100769323"
+        apikey: "yB5iOTA4o3635YX5sA1Dbch7oL6uo0yB5Lr1Akke_-M"
     });
     const defaultLayers = platform.createDefaultLayers();
     const hMap = new H.Map(mapRef.current, defaultLayers.vector.normal.map, {
@@ -36,7 +36,7 @@ const MyMap = () => {
     // My Code:
     // Create a marker icon from an image URL:
     const myPositionIcon = new H.map.Icon(myLocationIcon);
-    const skipForHireIcon = new H.map.Icon(SFHIcon);
+    const skipForHireIcon = new H.map.Icon(sFHIcon);
 
     // Create a marker using the previously instantiated icon:
     const myPosition = new H.map.Marker(myPositionCord, { icon: myPositionIcon });
@@ -51,7 +51,6 @@ const MyMap = () => {
     let coords = myPositionCord;
     hMap.setCenter(coords);
     hMap.setZoom(10);
-
 
     // This will act as a cleanup to run once this hook runs again.
     // This includes when the component un-mounts

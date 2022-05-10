@@ -13,6 +13,7 @@ const Main = () => {
     const [auctionsEnd, setAuctionsEnd] = useState([]);
     const [clicked, setClicked] = useState(null);
     const [clickedEnd, setClickedEnd] = useState(null);
+    const [showFindProf, setShowFindProf] = useState(`w3-show`);
     const [context, setContext] = useContext(UserContext);
 
     const profShow = () => {
@@ -78,11 +79,18 @@ const Main = () => {
 
     const showEnd = () => {
         if(clickedEnd === null) {
-            //setAuctionsEnd(context.auctionsEnd);
             setClickedEnd(`w3-show`);
         } else if(clickedEnd === `w3-hide`) {
             setClickedEnd(`w3-show`);
         } else setClickedEnd(`w3-hide`);
+    }
+
+    const showProf = () => {
+        if(showFindProf === null) {
+            setShowFindProf(`w3-show`);
+        } else if(showFindProf === `w3-hide`) {
+            setShowFindProf(`w3-show`);
+        } else setShowFindProf(`w3-hide`);
     }
 
     // //my code:
@@ -103,11 +111,15 @@ const Main = () => {
                 <div className='w3-left'>Hello {firstName(context.user.fullName)}</div> 
                 <div className='w3-right'><MenuPanel /> </div> 
             </div> <br />
-            <div classsName="w3-container" ><MyMap /> </div> <br />
-            {/* <div className="w3-container" style={{border: 1}} id='mapId'>:<MapsOrginal /> :</div> <br /> */}
             <div className="w3-container">
                 <div className={`w3-left`} onClick={() => show()}> Active Auctions </div> <br />
                 <div className={`${clicked}`}> {setAuc()} </div>
+            </div>
+            <br />
+
+            <div className="w3-container">
+                <div className={`w3-left`} onClick={() => showProf()}> Find Skip Company </div> <br />
+                <div className={`${showFindProf}`}> <MyMap /> </div>
             </div>
             <br />
 
