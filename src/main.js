@@ -4,6 +4,7 @@ import Auction from './auction';
 import MenuPanel from './menu';
 import Professional from './Professional';
 import Mapy from './map';
+import MapsOrginal from './MapsOrginal';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
 
@@ -90,7 +91,8 @@ const Main = () => {
                 <div className='w3-left'>Hello {firstName(context.user.fullName)}</div> 
                 <div className='w3-right'><MenuPanel /> </div> 
             </div> <br />
-            <div className="w3-container" id='mapId'><Mapy /> </div> <br />
+            {/* <div className="w3-container" id='mapId'><Mapy /> </div> <br /> */}
+            <div className="w3-container" style={{border: 1}} id='mapId'>:<MapsOrginal /> :</div> <br />
             <div className="w3-container">
                 <div className={`w3-left`} onClick={() => show()}> Active Auctions </div> <br />
                 <div className={`${clicked}`}> {setAuc()} </div>
