@@ -20,7 +20,16 @@ const LoginPanel = () => {
         setIsLoading(true);
         let dataToSend = JSON.stringify({loginDetails});
         // setTimeout(() => getUser(), 2000); //for Loading test purpose
-        getUser();
+        
+        // getUser().catch(() => {
+        //     console.log(`mam blad`);
+        //     setIsLoading(false);
+        //     setAlert(`Problem with connection to backend...`);
+        // });
+        getUser().catch(() => {
+            setIsLoading(false);
+            setAlert(`Problem with connection to backend...`);
+        }); 
         /*
             validation
         */
@@ -39,11 +48,11 @@ const LoginPanel = () => {
               'Content-Type': 'application/json',
             }
         };
-        const responseCons = await fetch(myUrl, info);
-        
-        
+
+        const responseCons = await fetch(myUrl, info)
+
         if(responseCons.ok) {
-            
+        
             const userRecived = await responseCons.json();
             const wrapper = {type: 'setUser', payload: userRecived, };
             setIsLoading(false);
@@ -58,11 +67,12 @@ const LoginPanel = () => {
             setAlert(`wrong details or User do not exist`);
 
         } else { 
-            console.log(`Problem with a server status ${responseCons.status}`);
             setIsLoading(false);
-        }
+            setAlert(`Problem with connection to backend...`);
+            console.log(`Problem with connection to backend...`);
+        }; 
         
-    }
+    };
 
     const reg = () => {
         setContext({type: 'setMenu', payload: `register`});
