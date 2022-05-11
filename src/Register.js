@@ -1,7 +1,8 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useReducer} from 'react';
 import backIcon from './arrow_back_ios_black_24dp.svg';
 import { UserContext } from './context';
 import Alert from './Alert.js';
+import FindAddress from './FindAddress';
 
 const url = `http://localhost:8081/`;
 
@@ -9,10 +10,13 @@ const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
     const [displayAlert, setAlert] = useState(`w3-hide`);
 
+    const [address, setAddress] = useState(`Find address`);
+    const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
+
     const [user, setUser] = useState({
         fullName: 'your full name...',
         email: 'your@email.com',
-        address: 'your address...',
+        // address: [address],
         phone: 'your phone...',
         firm: 'firm...',
         password: 'password...',
@@ -20,6 +24,11 @@ const Register = () => {
         licenseNo: '',
         userType: 'Consumer'
     })
+
+    const findAddress = (event) => {
+        event.preventDefault();
+        clickToggler();
+    };
 
     const nameValidator = (name) => {
         switch(name) {
@@ -37,6 +46,8 @@ const Register = () => {
 
     const typeValidator = (type) => {
         switch(type) {
+            case `address`:
+                return `button`;
             case 'email':
                 return 'email';
             case 'phone':
@@ -147,6 +158,8 @@ const Register = () => {
     return(
         <div className=''>
             <div><Alert message={`User already exist!`} displayAlert={displayAlert} setAlert={setAlert} /></div>
+            {toggler ? <div className='w3-display-middle'><FindAddress setAddressLable={setAddress} clickToggler={clickToggler} /></div> : null}
+                             
             <div>
                 
                 <div className='w3-panel'>
@@ -167,6 +180,11 @@ const Register = () => {
                             return inputer(key);
                             })
                         }
+                        <div>
+                            {/* <div>Find Address</div>  */}
+                            <button onClick={(e) => findAddress(e)}>Find Address</button>
+                            {address}
+                        </div> <br />
                         <input 
                             type='radio' 
                             value='Consumer' 

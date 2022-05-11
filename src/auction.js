@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Bids from './bids';
-import deleteIcon from './cancel_black_24dp.svg';
+import deleteIcon from './cancel_black.svg';
 import MakeBid from './MakeBid';
 import { UserContext } from './context';
 

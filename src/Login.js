@@ -20,19 +20,11 @@ const LoginPanel = () => {
         setIsLoading(true);
         let dataToSend = JSON.stringify({loginDetails});
         // setTimeout(() => getUser(), 2000); //for Loading test purpose
-        
-        // getUser().catch(() => {
-        //     console.log(`mam blad`);
-        //     setIsLoading(false);
-        //     setAlert(`Problem with connection to backend...`);
-        // });
+
         getUser().catch(() => {
             setIsLoading(false);
             setAlert(`Problem with connection to backend...`);
         }); 
-        /*
-            validation
-        */
     }
 
     const getUser = async () => {
@@ -118,7 +110,7 @@ const LoginPanel = () => {
                             value="Logi In"
                         ></input>
                     </form>
-                    <p>Don't have an account? <span onClick={reg}>Register here.</span></p>
+                    <div className=''>Don't have an account? <span onClick={reg} className='w3-button w3-card'>Register here.</span></div>
                     <hr />
                     <p>Facebook Icon</p>
                     <p>Google Icon</p>

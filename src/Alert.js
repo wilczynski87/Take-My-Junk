@@ -2,7 +2,7 @@
 set alert do not work!
 */
 import React, {useState} from 'react';
-import clouseIcon  from './cancel_black_24dp.svg';
+import clouseIcon  from './cancel_black.svg';
 
 const Alert = ({message, displayAlert, setAlert}) => {
 
