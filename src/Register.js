@@ -102,7 +102,10 @@ const Register = () => {
         urlFetch += user.userType === `Consumer`? cons : prof;
 
         //Body creator
-        const header = {};
+        const header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            };
         const data = {
             ...user
             }
@@ -115,10 +118,7 @@ const Register = () => {
         const response = await fetch(urlFetch, {
             method: 'POST',
             credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
+            headers: header,
             redirect: 'follow',
             referrerPolicy: 'no-referrer', 
             body: JSON.stringify(data)
