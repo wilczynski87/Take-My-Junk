@@ -10,7 +10,7 @@ const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
     const [displayAlert, setAlert] = useState(`w3-hide`);
 
-    const [address, setAddress] = useState({'label': 'Find address...'});
+    const [address, setAddress] = useState(null);
     const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
 
     const [user, setUser] = useState({

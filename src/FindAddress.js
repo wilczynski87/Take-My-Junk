@@ -17,8 +17,6 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
         lng: 0
     });
 
-    const [position, setPosition] = useState({});
-
     useEffect(() => {
         //finding current address
         currentAddress();
@@ -44,6 +42,7 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
         )
     }
 
+    //address by getting position from FORM
     const addressHandler = (e) => {
         e.preventDefault();
 
@@ -65,27 +64,32 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
             //after fetch
             if(rawResponse.ok) {
                 const response = await rawResponse.json();
+                const myAddress = response.items[0].address;
+
                 setAddress({
-                    street: response.items[0].address.street,
-                    number: response.items[0].address.houseNumber,
-                    town: response.items[0].address.city,
-                    postcode: response.items[0].address.postalCode,
-                    label: response.items[0].address.label,
-                    lat: response.items[0].access[0].lat,
-                    lng: response.items[0].access[0].lng,
+                    street: myAddress.street,
+                    number: myAddress.houseNumber,
+                    town: myAddress.city,
+                    postcode: myAddress.postalCode,
+                    label: myAddress.label,
+                    lat: response.items[0].position.lat,
+                    lng: response.items[0].position.lng
                 });
             } else {
                 console.log(`Fetch went wrong.... status code not ok`);
             }
         };
 
-        getAddress().catch(
-            console.log(`Getting address went wrong...`)
+        getAddress()
+            .catch((e) => {
+                console.log(`Getting address went wrong... ${e}`)
+            }
         );
-        console.log(position);
+        // console.log(position);
 
     }
 
+    //address by getting position from GPS
     const currentAddress = () => {
 
         const getAddressRev = async (lat, lng) => {
@@ -102,15 +106,18 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
             //after fetch
             if(rawResponse.ok) {
                 const response = await rawResponse.json();
-                //console.log(response);
+                const myAddress = response.items[0].address;
+                console.log(myAddress);
 
                 //putting address into status
                 setAddress({
-                    street: response.items[0].address.street,
-                    number: response.items[0].address.houseNumber,
-                    town: response.items[0].address.city,
-                    postcode: response.items[0].address.postalCode,
-                    label: response.items[0].address.label
+                    street: myAddress.street === undefined ? `` : myAddress.street,
+                    number: myAddress.houseNumber === undefined ? `` : myAddress.houseNumber,
+                    town: myAddress.city,
+                    postcode: myAddress.postalCode === undefined ? `` : myAddress.postalCode,
+                    label: myAddress.label,
+                    lat: myAddress.lat === undefined ? lat : myAddress.lat,
+                    lng: myAddress.lng === undefined ? lng : myAddress.lng
                 });
 
             } else {
@@ -121,7 +128,7 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
         const success = (position) => {
             const lat  = position.coords.latitude;
             const lng = position.coords.longitude;
-            console.log(lat + " " + lng);
+            // console.log(lat + " " + lng);
 
             //finding address baised on lat and lng
             getAddressRev(lat, lng);
