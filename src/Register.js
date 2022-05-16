@@ -10,13 +10,13 @@ const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
     const [displayAlert, setAlert] = useState(`w3-hide`);
 
-    const [address, setAddress] = useState(null);
+    const [address, setAddress] = useState({});
     const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
 
     const [user, setUser] = useState({
         fullName: 'your full name...',
         email: 'your@email.com',
-        // address: [{address}],
+        //address: [{...address}],
         phone: 'your phone...',
         firm: 'firm...',
         password: 'password...',
@@ -182,8 +182,8 @@ const Register = () => {
                         }
                         <div>
                             {/* <div>Find Address</div>  */}
-                            <button onClick={(e) => findAddress(e)}>Find Address</button>
-                            {address}
+                            <button onClick={(e) => findAddress(e)}>Find Address</button> <br />
+                            {address.label === undefined ? `Find address...` : address.label}
                         </div> <br />
                         <input 
                             type='radio' 

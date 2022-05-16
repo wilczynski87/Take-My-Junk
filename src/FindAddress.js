@@ -150,7 +150,7 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
     const correctAddress = (e) => {
         e.preventDefault();
         
-        // setAddressLable({address});
+        setAddressLable({...address});
         clickToggler();
     };
 
