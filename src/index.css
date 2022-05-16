@@ -26,3 +26,15 @@ code {
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
+
+.logo-spinner {
+  width: 50%;
+  /* height: 100px; */
+  border-radius: 50%;
+  animation: spinner 5s linear infinite;
+}
+
+.hammer {
+  position: absolute;
+  width: 50%;
+}

@@ -14,7 +14,7 @@ function App() {
   const [userMenu, setUserMenu] = useContext(UserContext);
 
   return (
-      <div className="w3-container w3-teal">
+      <div className="w3-container w3-teal w3-center">
           {userMenu[`menu`] === `login` ? <LoginPanel /> : null}
           {userMenu[`menu`] === `main` ? <Main /> : null}
           {userMenu[`menu`] === `createAuction` ? <CreateAuction /> : null}

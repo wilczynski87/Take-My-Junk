@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
-import logo from './myLogo2.png';
+import logo from './szczalkiLogo.png';
+import hammer from './mlotekLogo.png';
 import { UserContext } from './context';
 import FetchLoading from './FetchLoading';
 import Alert from './Alert';
@@ -21,9 +22,10 @@ const LoginPanel = () => {
         let dataToSend = JSON.stringify({loginDetails});
         // setTimeout(() => getUser(), 2000); //for Loading test purpose
 
-        getUser().catch(() => {
-            setIsLoading(false);
-            setAlert(`Problem with connection to backend...`);
+        getUser()
+            .catch((e) => {
+                setIsLoading(false);
+                setAlert(`Problem with connection to backend... ${e}`);
         }); 
     }
 
@@ -42,6 +44,7 @@ const LoginPanel = () => {
         };
 
         const responseCons = await fetch(myUrl, info)
+        //console.log(responseCons);
 
         if(responseCons.ok) {
         
@@ -61,7 +64,7 @@ const LoginPanel = () => {
         } else { 
             setIsLoading(false);
             setAlert(`Problem with connection to backend...`);
-            console.log(`Problem with connection to backend...`);
+            console.log(`Problem with connection to backend... ${responseCons}`);
         }; 
         
     };
@@ -75,7 +78,10 @@ const LoginPanel = () => {
             { isLoading === true ? <FetchLoading message='I am loading User details' /> : null }
             { alert !== `w3-hide` ? <Alert message={alert} setAlert={setAlert} /> : null }
                 <div>
-                    <img src={logo} className="App-logo" alt="logo" />
+                    <div className="w3-display-container">
+                        <img src={logo} className="App-logo logo-spinner" alt="logo" />
+                        <img src={hammer} className="hammer w3-display-topmiddle" />
+                    </div>
                     <form
                         onSubmit={event => submitHandler(event)}
                     >

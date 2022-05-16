@@ -3,7 +3,6 @@ import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
 import Professional from './Professional';
-import MapsOrginal from './MapsOrginal';
 import MyMap from './MyMap';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
