@@ -9,9 +9,9 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
 
     const [address, setAddress] = useState({
         street: `Hardwick Road East`,
-        number: `9`,
-        town: `Worksop`,
-        postcode: `S80 2NS`,
+        house_number: `9`,
+        city: `Worksop`,
+        postal_code: `S80 2NS`,
         label: null,
         lat: 0,
         lng: 0
@@ -50,11 +50,11 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
         const getAddress = async () => {
             //url builder
             const formattedStreet = address.street.trim().replaceAll(` `, `+`);
-            const formattedPostcode = address.postcode.trim().replaceAll(` `, `+`);
-            const formattedTown = address.town.trim().replaceAll(` `, `+`);
+            const formattedPostcode = address.postal_code.trim().replaceAll(` `, `+`);
+            const formattedCity = address.city.trim().replaceAll(` `, `+`);
             const apiKey = `&apiKey=yB5iOTA4o3635YX5sA1Dbch7oL6uo0yB5Lr1Akke_-M`;
 
-            const urlBilder = `${url}${formattedStreet}+${address.number}%2C+${formattedPostcode}+${formattedTown}${apiKey}`;
+            const urlBilder = `${url}${formattedStreet}+${address.number}%2C+${formattedPostcode}+${formattedCity}${apiKey}`;
             // console.log(urlBilder);
 
             //fetch
@@ -67,10 +67,10 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
                 const myAddress = response.items[0].address;
 
                 setAddress({
-                    street: myAddress.street,
-                    number: myAddress.houseNumber,
-                    town: myAddress.city,
-                    postcode: myAddress.postalCode,
+                    street: myAddress.street === undefined ? `` : myAddress.street,
+                    house_number: myAddress.houseNumber === undefined ? `` : myAddress.houseNumber,
+                    city: myAddress.city,
+                    postal_code: myAddress.postalCode === undefined ? `` : myAddress.postalCode,
                     label: myAddress.label,
                     lat: response.items[0].position.lat,
                     lng: response.items[0].position.lng
@@ -112,9 +112,9 @@ const FindAddress = ({setAddressLable, clickToggler}) => {
                 //putting address into status
                 setAddress({
                     street: myAddress.street === undefined ? `` : myAddress.street,
-                    number: myAddress.houseNumber === undefined ? `` : myAddress.houseNumber,
-                    town: myAddress.city,
-                    postcode: myAddress.postalCode === undefined ? `` : myAddress.postalCode,
+                    house_number: myAddress.houseNumber === undefined ? `` : myAddress.houseNumber,
+                    city: myAddress.city,
+                    postal_code: myAddress.postalCode === undefined ? `` : myAddress.postalCode,
                     label: myAddress.label,
                     lat: myAddress.lat === undefined ? lat : myAddress.lat,
                     lng: myAddress.lng === undefined ? lng : myAddress.lng

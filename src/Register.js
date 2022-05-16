@@ -16,7 +16,6 @@ const Register = () => {
     const [user, setUser] = useState({
         fullName: 'your full name...',
         email: 'your@email.com',
-        //address: [{...address}],
         phone: 'your phone...',
         firm: 'firm...',
         password: 'password...',
@@ -107,7 +106,8 @@ const Register = () => {
             'Content-Type': 'application/json'
             };
         const data = {
-            ...user
+            ...user,
+            address: {...address}
             }
         delete data.rPassword;
         delete data.userType;
@@ -181,7 +181,6 @@ const Register = () => {
                             })
                         }
                         <div>
-                            {/* <div>Find Address</div>  */}
                             <button onClick={(e) => findAddress(e)}>Find Address</button> <br />
                             {address.label === undefined ? `Find address...` : address.label}
                         </div> <br />
