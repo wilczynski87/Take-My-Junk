@@ -3,7 +3,7 @@ import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
 import Professional from './Professional';
-import MyMap from './MyMap';
+import MapAndProf from './MapAndProf';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
 
@@ -13,6 +13,7 @@ const Main = () => {
     const [clicked, setClicked] = useState(null);
     const [clickedEnd, setClickedEnd] = useState(null);
     const [showFindProf, setShowFindProf] = useState(`w3-show`);
+    
     const [context, setContext] = useContext(UserContext);
 
     const profShow = () => {
@@ -118,7 +119,7 @@ const Main = () => {
 
             <div className="w3-container">
                 <div className={`w3-left`} onClick={() => showProf()}> Find Skip Company </div> <br />
-                <div className={`${showFindProf}`}> <MyMap /> </div>
+                <div className={`${showFindProf}`}> <MapAndProf /> </div>
             </div>
             <br />
 

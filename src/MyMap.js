@@ -4,49 +4,17 @@ import sFHIcon from './been3.png';
 import { UserContext } from './context';
 
 
-const MyMap = () => {
+const MyMap = ({companys}) => {
   // Create a reference to the HTML element we want to put the map on
   const mapRef = useRef(null);
 
   const [context, setContext] = useContext(UserContext);
-  // const [mapsko, setMapsko] = useContext({myH: null, myHMap: null});
-
-  const [companys, setCompanys] = useState([]);
-  const [distance, setDistance] = useState(50);
 
   const myPositionCord = { lat: context.user.address.lat, lng: context.user.address.lng};
 
-  const profOnMap = (e) => {
-    e.preventDefault();
-    // looking for providers:
-    getProfOnMap(distance)
-    .catch(e => {
-      console.log(`some error: ` + e);
-    })
-  };
-
-  // My Code -> for nearby skip companys
-  const getProfOnMap = async (distance) => {
-    //urlBuilder
-    const myDistance = distance === undefined ? 50 : distance;
-    const urlBaze = `http://localhost:8081/profPos/`; //{distance}/{lat}/{lng}`;
-    const url = urlBaze + myDistance + `/` + myPositionCord.lat + `/` + myPositionCord.lng;
-
-    //fetch
-    const rawResponse = await fetch(url);
-
-    if(rawResponse.ok) {
-      const responce = await rawResponse.json();
-      // console.log(responce);
-      setCompanys(responce);
-    } else {
-      console.log(`Wrong responsce status`)
-    }
-  }
-
   // My Code -> marking companys on map
   const setCompanysOnMap = (H, hMap) => {
-    companys.map((company) => {
+    companys.map(company => {
 
       const position = {
         lat: company.lat,
@@ -113,13 +81,9 @@ const MyMap = () => {
 
   return (
     <div>
-      <div className="map" ref={mapRef} style={{ height: "200px" }} />
-      <form>
-        <input type='number' value={distance} onChange={(event) => setDistance(event.target.value)}/>
-        <input type='submit' onClick={(e) => profOnMap(e)} value='Check providers' />
-      </form>
-      
-    </div>);
+      <div className="map" ref={mapRef} style={{ height: "200px" }} />      
+    </div>
+  );
 };
 
 export default MyMap;
