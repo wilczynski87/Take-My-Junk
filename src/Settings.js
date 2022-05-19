@@ -1,20 +1,25 @@
 /*
 - option to swich from consumer to Provider
 */
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useReducer} from 'react';
 import { UserContext } from './context';
 import Menu from './menu';
 import Alert from './Alert';
+import FindAddress from './FindAddress';
 
 const url = `http://localhost:8081/`;
 
 const Settings = () => {
     const [context, setContext] = useContext(UserContext);
+
     const [user, setUser] = useState(context.user);
     const [alert, setAlert] = useState(`w3-hide`);
+    const [address, setAddress] = useState({...user.address});
+
+    const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
 
     const hide = (condition) => {
-        return condition === `id` ? ` w3-hide` : null;
+        return condition === `id` || condition === `address` ? ` w3-hide` : null;
     }
 
     const details = (key) => {
@@ -49,7 +54,8 @@ const Settings = () => {
         }
 
         const data = {
-            ...user
+            ...user,
+            address: address
         };
 
         //fetch
@@ -97,15 +103,23 @@ const Settings = () => {
         //info about changed details -> succes or NOT?!
     }
 
+    const findAddress = (event) => {
+        event.preventDefault();
+        clickToggler();
+    };
+
     return (
         <div>
             {alert !== `w3-hide` ? <Alert message={alert} setAlert={setAlert} /> : null}
+            {toggler ? <div className='w3-display-middle'><FindAddress setAddressLable={setAddress} clickToggler={clickToggler} /></div> : null}
             <div className='w3-panel'> 
                 <div className='w3-left'>I am Settings!</div> 
                 <div className='w3-right'><Menu /></div> 
             </div>
             <form onSubmit={(event) => submitHandler(event)}>
                 {Object.keys(user).map(details)}
+                <button onClick={(e) => findAddress(e)}>Find Address</button> <br />
+                {address.label === undefined ? `Find address...` : address.label}
                 <input type='submit' value='Submit changes' />
             </form>
             <form onSubmit={(event) => deleteAccount(event)}>

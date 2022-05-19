@@ -1,17 +1,16 @@
-/* TO DO:
-- fetch w tworzeniau auckji
-- daty -> utowrzyć bazowo datę dzisiejszą
-- daty -> bazowo termin +7 dni
-*/
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useReducer } from 'react';
 import MenuPanel from './menu';
 import { UserContext } from './context';
+import FindAddress from './FindAddress';
 
 const url = "http://localhost:8081/createAuction/";
 
 const CreateAuction = () => {
 
     const [context, setMenu] = useContext(UserContext);
+    //about finding address
+    const [address, setAddress] = useState({...context.user.address});
+    const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
 
     const timeCreator = (plus) => {
         const today = new Date();
@@ -30,10 +29,14 @@ const CreateAuction = () => {
         containerNumber: 0,
         startDate: timeCreator(0),
         endDate:  timeCreator(10), 
-        address: 'where to deliver an container?',
+        //address: address,
         notes: 'notes...',
-        //whoCreated: context.user.id
     });
+
+    const findAddress = (event) => {
+        event.preventDefault();
+        clickToggler();
+    };
 
     const submitHandler = async event => {
         event.preventDefault();
@@ -51,7 +54,7 @@ const CreateAuction = () => {
             'Content-Type': 'application/json'
         };
         const body = JSON.stringify(myForm); //let dataToSend = JSON.stringify({myForm});
-        console.log(myForm);
+        // console.log(myForm);
 
         //fetch
         const response = await fetch( urlId,
@@ -131,6 +134,8 @@ const CreateAuction = () => {
 
     return(
         <div>
+            {toggler ? <div className='w3-display-middle'><FindAddress setAddressLable={setAddress} clickToggler={clickToggler} /></div> : null}
+             
             <div className='w3-panel w3-border'> 
                 <div className='w3-left w3-border'>Create Auction</div> 
                 <div className='w3-right w3-border'><MenuPanel /> </div>
@@ -141,6 +146,10 @@ const CreateAuction = () => {
                     .filter((key) => key != 'whoCreated')
                     .map( (mykey) => myLabel(mykey) )
             }
+            <div>
+                <button onClick={(e) => findAddress(e)}>Find Address</button> <br />
+                {address.label === undefined ? `Find address...` : address.label}
+            </div> <br />
             <input type="submit" className='w3-right' value='submit' />
             </form>
         </div>
