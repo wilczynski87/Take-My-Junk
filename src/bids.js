@@ -24,15 +24,17 @@ const Bids = ({bidBody}) => {
     });
 
     return (
-        <div className='w3-container' onClick={() => setVisitCardOn(comapny.email)}>
+        <div className='w3-container' >
             <VisitCard 
                 visitCardOn={visitCardOn}
                 setVisitCardOn = {handler}
                 company={comapny}
             />
-            <div className='w3-left'>{bidBody.id}#</div>
-            <div className='w3-center'>{bidBody.profFirm}</div>
-            <div className='w3-right'>{bidBody.price}</div>
+            <div onClick={() => setVisitCardOn(comapny.email)}>
+                <div className='w3-left'>{bidBody.id}#</div>
+                <div className='w3-center'>{bidBody.profFirm}</div>
+                <div className='w3-right'>{bidBody.price}</div>
+            </div>
         </div>
     )
 }

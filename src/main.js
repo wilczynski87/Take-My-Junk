@@ -93,18 +93,6 @@ const Main = () => {
         } else setShowFindProf(`w3-hide`);
     }
 
-    // //my code:
-    // const myMarker = <svg src={MarkerDown} />;
-    // const map = MapsOrginal;
-
-    // let icon = new H.map.DomIcon(myMarker),
-    //   coords = {lat: -22.8906, lng: -43.2283},
-    //   marker = new H.map.DomMarker(coords, {icon: icon});
-   
-    // map.setCenter(coords);
-    // map.setZoom(18);
-    // map.addObject(marker);
-
     return (
         <div className=''>
             <div className='w3-panel'>
