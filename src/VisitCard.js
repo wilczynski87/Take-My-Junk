@@ -14,7 +14,7 @@ const VisitCard = ({visitCardOn, setVisitCardOn, company}) => {
             className={`w3-display-container w3-card w3-teal ${visitCardOn === company.email ? `w3-show` : `w3-hide`} w3-display-middle`} 
             style={{width: `90%`, position: `absolute`}} 
         >
-            <div className="w3-display-topright" onClick={() => handler()} ><img src={clouseIcon} /></div>
+            <div className="w3-display-topright" onClick={handler} ><img src={clouseIcon} /></div>
             <p>Company name: {company.name}</p>
             <p>email: {company.email}</p>
             <p>phone: {company.tel}</p>

@@ -29,7 +29,8 @@ code {
 
 .logo-spinner {
   width: 50%;
-  /* height: 100px; */
+  max-height: 200px;
+  max-width: 200px;
   border-radius: 50%;
   animation: spinner 5s linear infinite;
 }
@@ -37,4 +38,6 @@ code {
 .hammer {
   position: absolute;
   width: 50%;
+  max-height: 200px;
+  max-width: 200px;
 }

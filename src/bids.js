@@ -10,6 +10,10 @@ const Bids = ({bidBody}) => {
     const [name, setName] = useState(`Bidder details`)
     const [visitCardOn, setVisitCardOn] = useState("none")
 
+    const handler = (em) => {
+        setVisitCardOn(em);
+    }
+
     const comapny = {
         name: bidBody.profFirm,
         email: 'email@email.com'
@@ -23,7 +27,7 @@ const Bids = ({bidBody}) => {
         <div className='w3-container' onClick={() => setVisitCardOn(comapny.email)}>
             <VisitCard 
                 visitCardOn={visitCardOn}
-                setVisitCardOn = {setVisitCardOn}
+                setVisitCardOn = {handler}
                 company={comapny}
             />
             <div className='w3-left'>{bidBody.id}#</div>
