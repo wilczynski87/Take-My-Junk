@@ -29,7 +29,6 @@ const CreateAuction = () => {
         containerNumber: 0,
         startDate: timeCreator(0),
         endDate:  timeCreator(10), 
-        //address: address,
         notes: 'notes...',
     });
 
@@ -53,7 +52,10 @@ const CreateAuction = () => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         };
-        const body = JSON.stringify(myForm); //let dataToSend = JSON.stringify({myForm});
+        const body = JSON.stringify({
+            ...myForm,
+            address: address
+        }); //let dataToSend = JSON.stringify({myForm});
         // console.log(myForm);
 
         //fetch

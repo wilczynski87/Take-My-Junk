@@ -16,8 +16,8 @@ const Professional = () => {
     const refreshBid = () => {
         bidRefresh === false ?  setBidRefresh(true) :  setBidRefresh(false);
     }
-    
-    useEffect(() => {
+
+    const fetching = async () => {
         //url build
         const myUrlFiltered = urlFiltered + context.user.id;
 
@@ -29,28 +29,34 @@ const Professional = () => {
 
         const body = {
             junkType: null,
-            distance: 0,
+            distanceMax:  10000, // Number.POSITIVE_INFINITY,
             startDate: null,
             endDate: null,
             auctionStarted: null,
-            volume: 0,
-            lowestBid: null,
+            volumeMin: -1, // Number.NEGATIVE_INFINITY,
+            volumeMax: 10000, // Number.POSITIVE_INFINITY,
+            lowestBid: 10000 // Number.POSITIVE_INFINITY,
         }
 
         //fetch
-        const fetching = async () => {
-            const response = await fetch(myUrlFiltered, {
-                method: 'POST',
-                headers: header,
-                body: JSON.stringify(body),
-            });
-            if(response.ok) {
-                const responseJson = await response.json();
-                setAuctions(responseJson)
-            } else {
-                console.log(`Problem with request Filtered Auctions ${response.status}`);
-            }
+        const response = await fetch(myUrlFiltered, {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify(body),
+        });
+        // console.log(response);
+
+        if(response.ok) {
+            const responseJson = await response.json();
+            // console.log(responseJson);
+            setAuctions(responseJson)
+        } else {
+            console.log(`Problem with request Filtered Auctions ${response.status}`);
         }
+    }
+    
+    useEffect(() => {
+        
         fetching();
         //after fetch
 
@@ -106,6 +112,10 @@ const Professional = () => {
         );
     }
 
+    const showFilters = (e) => {
+        e.preventDefault();
+    }
+
     return (
         <div>
             <div className='w3-panel w3-border'> 
@@ -118,7 +128,10 @@ const Professional = () => {
             </div> <br />
             <div>
                 <div onClick = {() => displayHandler()}>Auctions</div> <br />
-                <div className={`${clicked}`}> {displayAuctions()} </div>
+                <div className={`${clicked}`}> 
+                    <div><button onClick={(e) => showFilters(e)}>Filter Auctions</button></div>
+                    {displayAuctions()} 
+                </div>
             </div>
 
         </div>
