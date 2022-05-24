@@ -1,7 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useReducer } from 'react';
 import { UserContext } from './context';
 import MenuPanel from './menu';
 import Auction from './auction';
+import Filters from './Filters';
 
 const urlFiltered = `http://localhost:8081/getAuctionByFilers/`;
 const urlBid = `http://localhost:8081/getAuctionsWithMyBids/`;
@@ -12,6 +13,17 @@ const Professional = () => {
     const [clicked, setClicked] = useState(`w3-hide`);
     const [context, setContext] = useContext(UserContext);
     const [bidRefresh, setBidRefresh] = useState(false);
+    const [filter, setFilter] = useState({
+        junkType: null,
+        distanceMax:  50, // Number.POSITIVE_INFINITY,
+        startDate: null,
+        endDate: null,
+        auctionStarted: null,
+        volumeMin: -1, // Number.NEGATIVE_INFINITY,
+        volumeMax: 10000, // Number.POSITIVE_INFINITY,
+        lowestBid: 10000 // Number.POSITIVE_INFINITY,
+    });
+    const [filterTog, clickFilterTog] = useReducer((filterTog) => !filterTog, false)
 
     const refreshBid = () => {
         bidRefresh === false ?  setBidRefresh(true) :  setBidRefresh(false);
@@ -27,22 +39,11 @@ const Professional = () => {
             'Content-Type': 'application/json'
         };
 
-        const body = {
-            junkType: null,
-            distanceMax:  10000, // Number.POSITIVE_INFINITY,
-            startDate: null,
-            endDate: null,
-            auctionStarted: null,
-            volumeMin: -1, // Number.NEGATIVE_INFINITY,
-            volumeMax: 10000, // Number.POSITIVE_INFINITY,
-            lowestBid: 10000 // Number.POSITIVE_INFINITY,
-        }
-
         //fetch
         const response = await fetch(myUrlFiltered, {
             method: 'POST',
             headers: header,
-            body: JSON.stringify(body),
+            body: JSON.stringify(filter),
         });
         // console.log(response);
 
@@ -60,7 +61,7 @@ const Professional = () => {
         fetching();
         //after fetch
 
-    },[bidRefresh]);
+    },[bidRefresh, filter]);
 
     //Auctions with BID
     useEffect(() => {
@@ -114,10 +115,12 @@ const Professional = () => {
 
     const showFilters = (e) => {
         e.preventDefault();
+        clickFilterTog();
     }
 
     return (
         <div>
+            <Filters filter={filter} setFilter={setFilter} filterTog={filterTog} clickFilterTog={clickFilterTog}/>
             <div className='w3-panel w3-border'> 
                 <div className='w3-left w3-border'>Professional Menu:</div> 
                 <div className='w3-right w3-border'><MenuPanel /> </div>
