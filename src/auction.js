@@ -1,14 +1,19 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect, useReducer } from 'react';
 import Bids from './bids';
 import deleteIcon from './cancel_black.svg';
 import MakeBid from './MakeBid';
 import { UserContext } from './context';
+import AuctionInfo from './AuctionInfo';
+import info from './info.svg';
 
 const url = "http://localhost:8081/deleteAuction/";
 
 const Auction = ({body, index, refreshBid}) => {
     const [click, setClick] = useState(null);
+
     const [context, setContext] = useContext(UserContext);
+
+    const [showInfo, setShowInfo] = useReducer((showInfo) => !showInfo ,false);
 
     const bidy = body.bids.sort((a, b) => b.price - a.price);
 
@@ -67,7 +72,9 @@ const Auction = ({body, index, refreshBid}) => {
 
     return (
         <div className='w3-panel w3-card-4'>
-            <div className='w3-cell-row w3-left'>
+            <AuctionInfo showInfo={showInfo} setShowInfo={setShowInfo} body={body} />
+            <div className='w3-cell-row w3-left w3-display-container'>
+                <img src={info} className='w3-display-topright' onClick={() => setShowInfo()}/>
                 <div onClick={() => show()}>
                     <div className='w3-left w3-cell-top' >{body.id}#</div>
                     <div className='w3-center w3-cell-top'>{body.title}</div>
