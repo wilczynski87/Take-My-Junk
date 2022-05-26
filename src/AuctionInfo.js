@@ -1,5 +1,5 @@
 import React, {useState } from "react";
-import clouseIcon  from './cancel_black.svg';
+import clouseIcon from './cancel_black.svg';
 
 const AuctionInfo = ({showInfo, setShowInfo, body}) => {
 

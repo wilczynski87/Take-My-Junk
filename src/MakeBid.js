@@ -65,7 +65,7 @@ const MakeBid = ({refreshBid, auctionBody}) => {
         <div className='w3-display-container '>
             Make an offer!:
             <form onSubmit={(event) => submit(event)} className='w3-container'>
-                <label className='w3-label'>Price: 
+                <label className='w3-label w3-half'>Price: 
                 <input 
                     className='w3-inpiut '
                     type='number'
@@ -73,8 +73,8 @@ const MakeBid = ({refreshBid, auctionBody}) => {
                     value = {inputData.price}
                     onChange={(event) => inputHandles(event)}
                     style={{maxWidth: `50%`}}
-                /> </label>  <br />
-                <label className='w3-label'>for how long:
+                /> </label>
+                <label className='w3-label w3-half'>for how long:
                 <input 
                     className='w3-inpiut '
                     type='number'

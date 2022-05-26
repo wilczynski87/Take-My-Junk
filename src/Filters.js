@@ -1,11 +1,14 @@
 import React, {useState, useReducer} from 'react';
 import close from './cancel_black.svg';
+import JunkType from './JunkType';
 
 const Filters = ({filter, setFilter, filterTog, clickFilterTog}) => {
 
     const [filters, setFilters] = useState({
         ...filter
     });
+    const [junkType, setJunkType] = useState(filters.junkType);
+
 
     const show = () => {
         return filterTog ? `w3-show` : `w3-hide`;
@@ -13,12 +16,16 @@ const Filters = ({filter, setFilter, filterTog, clickFilterTog}) => {
 
     const submit = (e) => {
         e.preventDefault();
-        setFilter(filters);
+        setFilter({
+            ...filters,
+            junkType: junkType
+        });
         clickFilterTog();
     }
 
     return(
         <div className={`w3-card-4 w3-display-container w3-display-middle w3-teal ${show()}`} >
+            <JunkType junkType={junkType} setJunkType={setJunkType} />
             <img className='w3-display-topright' src={close} onClick={() => clickFilterTog()} />
             <form>
                 <label for='distanceMax'>max distance: {filters.distanceMax}</label>

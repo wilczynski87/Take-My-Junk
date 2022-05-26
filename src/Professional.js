@@ -17,7 +17,7 @@ const Professional = () => {
         junkType: null,
         distanceMax:  50, // Number.POSITIVE_INFINITY,
         startDate: null,
-        endDate: null,
+        endDate: new Date(),
         auctionStarted: null,
         volumeMin: -1, // Number.NEGATIVE_INFINITY,
         volumeMax: 10000, // Number.POSITIVE_INFINITY,
