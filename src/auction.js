@@ -4,7 +4,7 @@ import deleteIcon from './cancel_black.svg';
 import MakeBid from './MakeBid';
 import { UserContext } from './context';
 import AuctionInfo from './AuctionInfo';
-import info from './info.svg';
+import infoIcon from './info.svg';
 
 const url = "http://localhost:8081/deleteAuction/";
 
@@ -74,7 +74,7 @@ const Auction = ({body, index, refreshBid}) => {
         <div className='w3-panel w3-card-4'>
             <AuctionInfo showInfo={showInfo} setShowInfo={setShowInfo} body={body} />
             <div className='w3-cell-row w3-left w3-display-container'>
-                <img src={info} className='w3-display-topright' onClick={() => setShowInfo()}/>
+                <img src={infoIcon} className='w3-display-topleft' onClick={() => setShowInfo()}/>
                 <div onClick={() => show()}>
                     <div className='w3-left w3-cell-top' >{body.id}#</div>
                     <div className='w3-center w3-cell-top'>{body.title}</div>

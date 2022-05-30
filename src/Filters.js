@@ -41,7 +41,7 @@ const Filters = ({filter, setFilter, filterTog, clickFilterTog}) => {
                         })}
                 />
                 <div className='w3-row-padding'>
-                <label for='lowestBid'>Lowest price offer: </label>
+                <label for='lowestBid'>Auction with price higher than: </label>
                 <input 
                     name='lowestBid'
                     type='number'

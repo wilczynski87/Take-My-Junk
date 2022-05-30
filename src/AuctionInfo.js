@@ -10,7 +10,7 @@ const AuctionInfo = ({showInfo, setShowInfo, body}) => {
 
     return(
         <div className={`w3-card-4 w3-panel w3-teal w3-display-middle w3-display-container ${show()}`}>
-            <div><img src={clouseIcon} className='w3-display-topright' onClick={() => setShowInfo()} /></div>
+            <div><img src={clouseIcon} className='w3-display-topleft' onClick={() => setShowInfo()} /></div>
             <div>
                 Auction Info: <br />
                 Title: {body.title} <br />

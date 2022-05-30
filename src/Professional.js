@@ -15,13 +15,13 @@ const Professional = () => {
     const [bidRefresh, setBidRefresh] = useState(false);
     const [filter, setFilter] = useState({
         junkType: null,
+        lowestBid: 0, // Number.POSITIVE_INFINITY,
         distanceMax:  50, // Number.POSITIVE_INFINITY,
         startDate: null,
         endDate: new Date(),
         auctionStarted: null,
         volumeMin: -1, // Number.NEGATIVE_INFINITY,
-        volumeMax: 10000, // Number.POSITIVE_INFINITY,
-        lowestBid: 10000 // Number.POSITIVE_INFINITY,
+        volumeMax: 10000 // Number.POSITIVE_INFINITY,
     });
     const [filterTog, clickFilterTog] = useReducer((filterTog) => !filterTog, false)
 
