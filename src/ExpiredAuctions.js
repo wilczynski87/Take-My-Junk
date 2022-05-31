@@ -1,10 +1,19 @@
-import React, {useState} from "react";
+import React, {useContext} from "react";
+import { UserContext } from './context';
+import Auction from './auction';
 
-const ExpiredAuctions = () => {
+const ExpiredAuctions = ({auctionsEnd}) => {
 
     return(
-        <div>
-
+        <div> 
+            {
+                auctionsEnd.map((auction, index, key={key}) => {
+                    return auction.expired ? 
+                    <Auction index={index} body={auction} key={key + `expire`} /> :
+                    null;
+                    }
+                )
+            }
         </div>
     );
 };

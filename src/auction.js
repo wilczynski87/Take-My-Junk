@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useReducer } from 'react';
+import React, { useState, useContext, useReducer } from 'react';
 import Bids from './bids';
 import deleteIcon from './cancel_black.svg';
 import MakeBid from './MakeBid';
@@ -6,7 +6,8 @@ import { UserContext } from './context';
 import AuctionInfo from './AuctionInfo';
 import infoIcon from './info.svg';
 
-const url = "http://localhost:8081/deleteAuction/";
+const urlExpire = "http://localhost:8081/expireAuction/";
+const urlDelete = "http://localhost:8081/deleteAuction/";
 
 const Auction = ({body, index, refreshBid}) => {
     const [click, setClick] = useState(null);
@@ -45,10 +46,36 @@ const Auction = ({body, index, refreshBid}) => {
         } else setClick(`w3-hide`);
     }
 
+    const expireAuction = async () => {
+        //url builder
+        const auctionId = body.id;
+        const myUrl = urlExpire + auctionId;
+
+        //fetch builder
+        const header = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        };
+
+        //fetch
+        const response = await fetch(myUrl, 
+            {
+                method: 'DELETE',
+                headers: header
+            });
+        const responseJSON = await response.json();
+
+        //after fetch
+        let auctions = context.auctions;
+        auctions.splice(index, 1);
+        auctions.push(responseJSON);
+        setContext({type: 'expire', payload: auctions});
+    };
+
     const deleteAuction = async () => {
         //url builder
         const auctionId = body.id;
-        const myUrl = url + auctionId;
+        const myUrl = urlDelete + auctionId;
 
         //fetch builder
         const header = {
@@ -68,10 +95,14 @@ const Auction = ({body, index, refreshBid}) => {
         let auctions = context.auctions;
         auctions.splice(index, 1);
         setContext({type: 'deleteAuction', payload: auctions});
-    };
+    }
+
+    const expireOrDelete = () => {
+        return body.expired ? deleteAuction() : expireAuction();
+    }
 
     return (
-        <div className='w3-panel w3-card-4'>
+        <div className='w3-panel w3-card-4' key={body.id}>
             <AuctionInfo showInfo={showInfo} setShowInfo={setShowInfo} body={body} />
             <div className='w3-cell-row w3-left w3-display-container'>
                 <img src={infoIcon} className='w3-display-topleft' onClick={() => setShowInfo()}/>
@@ -83,7 +114,7 @@ const Auction = ({body, index, refreshBid}) => {
                 <div>
                     <img 
                         src={deleteIcon} 
-                        onClick={() => deleteAuction()} 
+                        onClick={() => expireOrDelete()} 
                         className={`w3-right w3-cell-top ${ownerPrivilage()}`}
                         alt="delete Auction" 
                     />

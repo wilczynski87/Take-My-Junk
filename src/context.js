@@ -9,7 +9,7 @@ const initialRender = {
     };
 
 const ContextProv = (props) => {
-    const [loggedUser, setLoggedUser] = useState("DUPA");
+    const [loggedUser, setLoggedUser] = useState("Default User");
     const [state, dispatch] = useReducer(
             userReducer, initialRender
         ); //the "state" should be named userMenu
@@ -33,6 +33,8 @@ const userReducer = (state, action) => {
             return {...state, auctions: action.payload};
         case 'logOut':
             return {...state, user: initialRender.user, menu: 'login'}
+        case 'expire':
+            return {...state, auctions: action.payload}
         default:
             throw new Error(`Unhandled action type ${action.type}`)
     }

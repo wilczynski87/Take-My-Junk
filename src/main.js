@@ -3,6 +3,7 @@ import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
 import MapAndProf from './MapAndProf';
+import ExpiredAuctions from './ExpiredAuctions';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
 
@@ -24,15 +25,15 @@ const Main = () => {
         if(clicked === `w3-show` && auctions.length < 1 ) {
             return <div>No auctions to display :-( </div>;
         } else {
-            return auctions.map((auction, index) =><Auction key={index} body={auction} index={index} /> );
+            return auctions.map((auction, index, key) => <Auction index={index} body={auction} key={key} /> );
         }
     }
 
     const setAucEnd = () => {
-        if(clickedEnd === `w3-show` && auctionsEnd.length < 1 ) {
+        if(clickedEnd === `w3-show` && auctionsEnd.length < 1) {
             return <div>No auctions to display :-(</div>;
         } else {
-            return null;
+            return <ExpiredAuctions auctionsEnd={auctionsEnd} />;
         }
     }
 
@@ -69,7 +70,8 @@ const Main = () => {
 
     const show = () => {
         if(clicked === null) {
-            setAuctions(context.auctions);
+            const auctionsValid = context.auctions.filter(auction => !auction.expired);
+            setAuctions(auctionsValid);
             setClicked(`w3-show`);
         } else if(clicked === `w3-hide`) {
             setClicked(`w3-show`);
@@ -78,6 +80,8 @@ const Main = () => {
 
     const showEnd = () => {
         if(clickedEnd === null) {
+            const auctionsValid = context.auctions.filter(auction => auction.expired);
+            setAuctionsEnd(auctionsValid);
             setClickedEnd(`w3-show`);
         } else if(clickedEnd === `w3-hide`) {
             setClickedEnd(`w3-show`);
