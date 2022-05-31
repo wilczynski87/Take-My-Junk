@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
-import Professional from './Professional';
 import MapAndProf from './MapAndProf';
 
 const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
