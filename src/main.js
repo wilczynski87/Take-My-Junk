@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { UserContext } from './context';
 import Auction from './auction';
 import MenuPanel from './menu';
@@ -25,7 +25,7 @@ const Main = () => {
         if(clicked === `w3-show` && auctions.length < 1 ) {
             return <div>No auctions to display :-( </div>;
         } else {
-            return auctions.map((auction, index, key) => <Auction index={index} body={auction} key={key} /> );
+            return auctions.map((auction, index, key) => <Auction index={index} body={auction} key={auction.id} /> );
         }
     }
 
@@ -41,7 +41,7 @@ const Main = () => {
         return name.split(` `).shift();
     }
 
-    useEffect( () => {
+    useEffect(() => {
         //url builder
         const myUrl = auctionsURL + context.user.id;
 

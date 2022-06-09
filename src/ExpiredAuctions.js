@@ -7,9 +7,9 @@ const ExpiredAuctions = ({auctionsEnd}) => {
     return(
         <div> 
             {
-                auctionsEnd.map((auction, index, key={key}) => {
+                auctionsEnd.map((auction, index) => {
                     return auction.expired ? 
-                    <Auction index={index} body={auction} key={key + `expire`} /> :
+                    <Auction index={index} body={auction} key={auction.id} /> :
                     null;
                     }
                 )
