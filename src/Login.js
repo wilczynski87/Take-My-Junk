@@ -85,7 +85,7 @@ const LoginPanel = () => {
                     <form
                         onSubmit={event => submitHandler(event)}
                     >
-                        <label for="fname">Login:</label> <br />
+                        <label htmlFor="fname">Login:</label> <br />
                         <input 
                             type="text" 
                             id="fname" 
@@ -98,7 +98,7 @@ const LoginPanel = () => {
                                 }
                             ))}
                         /> <br />
-                        <label for="lname">Password:</label> <br />
+                        <label htmlFor="lname">Password:</label> <br />
                         <input 
                             type="password" 
                             id="lname" 
