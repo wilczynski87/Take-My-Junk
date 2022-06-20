@@ -9,7 +9,10 @@ const AuctionInfo = ({showInfo, setShowInfo, body}) => {
     }
 
     return(
-        <div className={`w3-card-4 w3-panel w3-teal w3-display-middle w3-display-container ${show()}`}>
+        <div 
+            className={`w3-card-4 w3-panel w3-teal w3-display-middle w3-display-container ${show()}`}
+            style={{ position: 'absolute', zIndex: '10000' }}
+        >
             <div><img src={clouseIcon} className='w3-display-topleft' onClick={() => setShowInfo()} /></div>
             <div>
                 Auction Info: <br />

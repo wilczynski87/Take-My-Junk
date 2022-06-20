@@ -9,6 +9,7 @@ const Alert = ({message, displayAlert, setAlert}) => {
     return (
         <div 
             className={`w3-panel w3-red w3-display-middle w3-round ${displayAlert}`}
+            style={{ position: 'absolute', zIndex: '10000' }}
             >
             <div className=''>
                 <h3 className=''>ALERT!</h3>
