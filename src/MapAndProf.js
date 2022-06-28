@@ -38,7 +38,7 @@ const MapAndProf = () => {
       // My Code -> for nearby skip companys
       const getProfOnMap = async (distance) => {
         //urlBuilder
-        const urlBaze = `http://localhost:8081/profPos/`;
+        const urlBaze = `${context.url}profPos/`;
         const url = urlBaze + distance + `/` + myPositionCord.lat + `/` + myPositionCord.lng;
     
         //fetch
