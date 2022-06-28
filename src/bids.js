@@ -3,12 +3,16 @@
 */
 import React, { useState, useContext, useEffect } from 'react';
 import VisitCard from './VisitCard';
+import { UserContext } from './context';
 
-const url = `http://localhost:8081/getProfessionalId/`;
+// const url = `http://localhost:8081/getProfessionalId/`;
 
 const Bids = ({bidBody}) => {
-    const [name, setName] = useState(`Bidder details`)
-    const [visitCardOn, setVisitCardOn] = useState("none")
+    const [name, setName] = useState(`Bidder details`);
+    const [visitCardOn, setVisitCardOn] = useState("none");
+    const [context, setContext] = useContext(UserContext);
+
+    const url = context.url + 'getProfessionalId/';
 
     const handler = (em) => {
         setVisitCardOn(em);

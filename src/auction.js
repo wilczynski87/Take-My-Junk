@@ -6,8 +6,8 @@ import { UserContext } from './context';
 import AuctionInfo from './AuctionInfo';
 import infoIcon from './info.svg';
 
-const urlExpire = "http://localhost:8081/expireAuction/";
-const urlDelete = "http://localhost:8081/deleteAuction/";
+// const urlExpire = "http://localhost:8081/expireAuction/";
+// const urlDelete = "http://localhost:8081/deleteAuction/";
 
 const Auction = ({body, index, refreshBid}) => {
     const [click, setClick] = useState(null);
@@ -15,6 +15,9 @@ const Auction = ({body, index, refreshBid}) => {
     const [context, setContext] = useContext(UserContext);
 
     const [showInfo, setShowInfo] = useReducer((showInfo) => !showInfo ,false);
+
+    const urlExpire = context.url + "expireAuction/";
+    const urlDelete = context.url + "deleteAuction/";
 
     const bidy = body.bids.sort((a, b) => b.price - a.price);
 

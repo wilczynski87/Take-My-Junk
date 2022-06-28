@@ -5,8 +5,6 @@ import MenuPanel from './menu';
 import MapAndProf from './MapAndProf';
 import ExpiredAuctions from './ExpiredAuctions';
 
-const auctionsURL = `http://localhost:8081/getAuctionsByUserId/`;
-
 const Main = () => {
     const [auctions, setAuctions] = useState([]);
     const [auctionsEnd, setAuctionsEnd] = useState([]);
@@ -15,6 +13,8 @@ const Main = () => {
     const [showFindProf, setShowFindProf] = useState(`w3-show`);
     
     const [context, setContext] = useContext(UserContext);
+
+    const auctionsURL = context.url + `getAuctionsByUserId/`;
 
     const profShow = () => {
         return `licenseNo` in context.user ? `w3-show` : `w3-hide`;

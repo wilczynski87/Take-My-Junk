@@ -1,5 +1,5 @@
 /*
-set alert do not work!
+setAlert do not work!
 */
 import React, {useState} from 'react';
 import clouseIcon  from './cancel_black.svg';
@@ -9,7 +9,7 @@ const Alert = ({message, displayAlert, setAlert}) => {
     return (
         <div 
             className={`w3-panel w3-red w3-display-middle w3-round ${displayAlert}`}
-            style={{ position: 'absolute', zIndex: '10000' }}
+            style={{ position: 'absolute', zIndex: '10' }}
             >
             <div className=''>
                 <h3 className=''>ALERT!</h3>

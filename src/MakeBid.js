@@ -3,7 +3,6 @@
 */
 import React, {useState, useContext} from 'react';
 import { UserContext } from './context';
-const url = `http://localhost:8081/makeBid/`; //makeBid/{professionalId}/{auctionId}
 
 const MakeBid = ({refreshBid, auctionBody}) => {
     const [inputData, setInputData] = useState({
@@ -11,6 +10,8 @@ const MakeBid = ({refreshBid, auctionBody}) => {
         timeDays: 7
     });
     const [context, setContext] = useContext(UserContext);
+
+    const url = context.url + `makeBid/`;
 
     const submit = (event) => {
         event.preventDefault();

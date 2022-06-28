@@ -3,7 +3,7 @@ import MenuPanel from './menu';
 import { UserContext } from './context';
 import FindAddress from './FindAddress';
 
-const url = "http://localhost:8081/createAuction/";
+// const url = "http://localhost:8081/createAuction/";
 
 const CreateAuction = () => {
 
@@ -11,6 +11,8 @@ const CreateAuction = () => {
     //about finding address
     const [address, setAddress] = useState({...context.user.address});
     const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
+
+    const url = context.url + "createAuction/";
 
     const timeCreator = (plus) => {
         const today = new Date();

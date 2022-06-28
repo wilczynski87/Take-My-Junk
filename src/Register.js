@@ -4,8 +4,6 @@ import { UserContext } from './context';
 import Alert from './Alert.js';
 import FindAddress from './FindAddress';
 
-const url = `http://localhost:8081/`;
-
 const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
     const [displayAlert, setAlert] = useState(`w3-hide`);
@@ -23,6 +21,8 @@ const Register = () => {
         licenseNo: '',
         userType: 'Consumer'
     })
+
+    const url = menu.url;
 
     const findAddress = (event) => {
         event.preventDefault();

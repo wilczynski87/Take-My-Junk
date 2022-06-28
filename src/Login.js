@@ -5,15 +5,14 @@ import { UserContext } from './context';
 import FetchLoading from './FetchLoading';
 import Alert from './Alert';
 
-
-const url = `http://localhost:8081/getUser/`;
-
 const LoginPanel = () => {
     const [userCont, setContext] = useContext(UserContext);
 
     const [loginDetails, setLoginDetails] = useState({'login': 'your@email.com', 'password': 'password...'});
     const [isLoading, setIsLoading] = useState(false);
     const [alert, setAlert] = useState(`w3-hide`);
+
+    const url = userCont.url + 'getUser/';
 
     //Asking server for an user
     const submitHandler = event => {

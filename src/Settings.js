@@ -7,8 +7,6 @@ import Menu from './menu';
 import Alert from './Alert';
 import FindAddress from './FindAddress';
 
-const url = `http://localhost:8081/`;
-
 const Settings = () => {
     const [context, setContext] = useContext(UserContext);
 
@@ -17,6 +15,8 @@ const Settings = () => {
     const [address, setAddress] = useState({...user.address});
 
     const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
+
+    const url = context.url;
 
     const hide = (condition) => {
         return condition === `id` || condition === `address` ? ` w3-hide` : null;

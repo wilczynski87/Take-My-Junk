@@ -4,9 +4,6 @@ import MenuPanel from './menu';
 import Auction from './auction';
 import Filters from './Filters';
 
-const urlFiltered = `http://localhost:8081/getAuctionByFilers/`;
-const urlBid = `http://localhost:8081/getAuctionsWithMyBids/`;
-
 const Professional = () => {
     const [auctions, setAuctions] = useState([]);
     const [auctionsWithBid, setAuctionsWithBid] = useState([]);
@@ -24,6 +21,9 @@ const Professional = () => {
         volumeMax: 10000 // Number.POSITIVE_INFINITY,
     });
     const [filterTog, clickFilterTog] = useReducer((filterTog) => !filterTog, false)
+
+    const urlFiltered = context.url + `getAuctionByFilers/`;
+    const urlBid = context.url + `getAuctionsWithMyBids/`;
 
     const refreshBid = () => {
         bidRefresh === false ?  setBidRefresh(true) :  setBidRefresh(false);
