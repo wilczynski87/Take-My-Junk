@@ -6,7 +6,7 @@ const initialRender = {
         'user': {'fullName': `no user logged!`, 'password': null},
         'auctions': {},
         'menu': `login`,
-        // 'url': '172.18.0.6:8081/'
+        // 'url': 'http://localhost:8081/'
         'url': 'https://tmjb.herokuapp.com/'
     };
 

@@ -7,6 +7,7 @@ import FindAddress from './FindAddress';
 const Register = () => {
     const [menu, setMenu] = useContext(UserContext);
     const [displayAlert, setAlert] = useState(`w3-hide`);
+    const [message, setMessage] = useState(`no message`);
 
     const [address, setAddress] = useState({});
     const [toggler, clickToggler] = useReducer((toggler) => {return !toggler}, false);
@@ -115,37 +116,42 @@ const Register = () => {
         if(user.userType === `Consumer`) delete data.licenseNo;
 
         //fetch
-        const response = await fetch(urlFetch, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: header,
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer', 
-            body: JSON.stringify(data)
-            }
-        );
-        
-        //after fetch
-        if(response.status === 226) {
-            console.log("Client already exist");
-            alert();
-        } else if(response.ok) {
-            const responseJson = await response.json();
-            console.log(responseJson);
-            back();
-        } else {
-            console.log(`error code: ${response.status}`);
+        try {
+            const response = await fetch(urlFetch, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: header,
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer', 
+                body: JSON.stringify(data)
+                }
+            );
+            
+            //after fetch
+            if(response.status === 226) {
+                console.log("Client already exist");
+                alert("Client already exist");
+            } else if(response.ok) {
+                const responseJson = await response.json();
+                console.log(responseJson);
+                back();
+            } else {
+                console.log(`other error with fetching`);
+                alert("Can not register this Client");
+            };
+        } catch (error) {
+            console.log(`other error with fetching`);
             alert("Can not register this Client");
         }
-        
     }
 
     const back = () => {
         setMenu({type: 'setMenu', payload: 'login'});
     }
 
-    const alert = () => {
+    const alert = (message) => {
         setAlert(`w3-show`);
+        setMessage(message);
     }
 
     const onValueChange = (event) => {
@@ -157,7 +163,7 @@ const Register = () => {
 
     return(
         <div className=''>
-            <div><Alert message={`User already exist!`} displayAlert={displayAlert} setAlert={setAlert} /></div>
+            <div><Alert message={message} displayAlert={displayAlert} setAlert={setAlert} /></div>
             {toggler ? <div className='w3-display-middle'><FindAddress setAddressLable={setAddress} clickToggler={clickToggler} /></div> : null}
                              
             <div>
